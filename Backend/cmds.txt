@@ -1,0 +1,1 @@
+celery -A apnidukan.celery worker -l info -c 3 -P eventlet
