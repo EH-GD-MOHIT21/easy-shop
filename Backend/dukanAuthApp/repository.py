@@ -6,6 +6,7 @@ from random import randint, choices
 from .tasks import send_mail_celery
 from .models import User
 from django.conf import settings
+from django.contrib.auth.password_validation import validate_password
 
 class DukanAuthUtils:
     
@@ -18,6 +19,12 @@ class DukanAuthUtils:
     def GenerateSlug(self,length):
         valid_chars = settings.VALID_CHARS
         return "".join(choices(valid_chars,k=length))
+
+    def isWeakPassword(self,password):
+        '''
+            Returns None or Raise Validation Err
+        '''
+        return validate_password(password)
 
 
 
@@ -146,6 +153,7 @@ class DukanAuth:
             raise UserNotExists()
         if data['otp'] == otp:
             # save the models here
+            cache.delete(email)
             return Response({'status':200,'message':'successfully created account.'})
         else:
             return Response({'status':200,'message':'OTP did not match.'})
@@ -166,6 +174,7 @@ class DukanAuth:
             rint = randint(70,120)
             token = DukanAuthUtils().GenerateSlug(rint)
             cache.set(email,token,300)
+            print(token)
             # send email
             send_mail_celery.delay(
                         to=[email],
@@ -176,3 +185,35 @@ class DukanAuth:
                                     Link with anyone.\n\nThanks & Regards\nTeam Apni Dukaan"""
                     )
             return Response({'status':200,'message':'Reset Link has been sent on email.'})
+
+
+
+    def ValidateRecoverToken(self,request,*args,**kwargs):
+        email = request.data['email']
+        token = request.data['token']
+        password = request.data['password']
+        cpassword = request.data['cpassword']
+        if '@' in email:
+            user = User.objects.get(email=email)
+            email = user.email
+        else:
+            user = User.objects.get(username=email)
+            email = user.email
+        if not cache.get(email):
+            return Response({'status':'Looks Like the Link has Expired or you\'ve not generated it.'})
+        if cache.get(email).strip()!=token.strip():
+            return Response({'status':'Invalid Token or Expired please Retry.'})
+        DukanAuthUtils().isWeakPassword(password)
+        if password != cpassword:
+            return Response({'status':404,'message':'Both Password does not match.'})
+        user.set_password(password)
+        user.save()
+        send_mail_celery.delay(
+                        to=[email],
+
+                        subject=f'''Hey {user.username}! Your password has been changed on apnidukan.''',
+
+                        message = f"""Hey {user.username}! Your password has been changed on apnidukan.\n\n\n\nThanks&Regards\n\nApniDukan"""
+                    )
+        cache.delete(email)
+        return Response({'status':'success','message':'Password Change success!'})

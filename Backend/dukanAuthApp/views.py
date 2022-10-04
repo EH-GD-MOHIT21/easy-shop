@@ -65,3 +65,12 @@ class RecoverAccountApi(APIView):
             return DukanAuth().RecoverAccount(request)
         except Exception as e:
             return Response({'status':404,'message':str(e)})
+
+
+
+class ValidateRecoverTokenApi(APIView):
+    def post(self,request,*args,**kwargs):
+        try:
+            return DukanAuth().ValidateRecoverToken(request)
+        except Exception as e:
+            return Response({'status':404,'message':str(e)})
