@@ -2,9 +2,10 @@ from .exceptions import InvalidCredentials,WaitTimeError,UserNotExists
 from django.contrib.auth import authenticate,login
 from rest_framework.response import Response
 from django.core.cache import cache
-from random import randint
+from random import randint, choices
 from .tasks import send_mail_celery
 from .models import User
+from django.conf import settings
 
 class DukanAuthUtils:
     
@@ -13,6 +14,10 @@ class DukanAuthUtils:
 
     def IsEmailAvailable(self,request):
         return User.objects.get(email=request.data["email"])
+
+    def GenerateSlug(self,length):
+        valid_chars = settings.VALID_CHARS
+        return "".join(choices(valid_chars,k=length))
 
 
 
@@ -144,3 +149,30 @@ class DukanAuth:
             return Response({'status':200,'message':'successfully created account.'})
         else:
             return Response({'status':200,'message':'OTP did not match.'})
+
+
+
+    def RecoverAccount(self,request):
+        email = email=request.data['email']
+        if '@' in email:
+            user = User.objects.get(email=email)
+            email = user.email
+        else:
+            user = User.objects.get(username=email)
+            email = user.email
+        if cache.get(email):
+            return Response({'status':'you have one pending request please try after 5 minutes.'})
+        else:
+            rint = randint(70,120)
+            token = DukanAuthUtils().GenerateSlug(rint)
+            cache.set(email,token,300)
+            # send email
+            send_mail_celery.delay(
+                        to=[email],
+
+                        subject=f'''Dear {user.username}! Your Password Reset Link is here for apnidukan.''',
+
+                        message = f"""Your One time Password Reset Link is http://127.0.0.1:8000/reset/{token}.\n\nPlease Don't share the
+                                    Link with anyone.\n\nThanks & Regards\nTeam Apni Dukaan"""
+                    )
+            return Response({'status':200,'message':'Reset Link has been sent on email.'})

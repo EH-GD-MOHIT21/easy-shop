@@ -61,4 +61,7 @@ class LoginOTPValidateApi(APIView):
 
 class RecoverAccountApi(APIView):
     def post(self,request,*args,**kwargs):
-        pass
+        try:
+            return DukanAuth().RecoverAccount(request)
+        except Exception as e:
+            return Response({'status':404,'message':str(e)})
