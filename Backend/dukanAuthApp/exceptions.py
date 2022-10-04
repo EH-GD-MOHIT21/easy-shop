@@ -13,6 +13,6 @@ class WaitTimeError(Exception):
 
 
 class UserNotExists(Exception):
-    def __init__(self, message="The OTP You are providing for user is either not exists or expired please retry."):
+    def __init__(self, message="The OTP You are providing is either wrong or expired please retry."):
         self.message = message
         super().__init__(self.message)

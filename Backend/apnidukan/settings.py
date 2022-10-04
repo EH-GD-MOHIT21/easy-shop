@@ -169,7 +169,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 
 AUTH_USER_MODEL = "dukanAuthApp.User"
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['application/json']

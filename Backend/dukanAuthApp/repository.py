@@ -7,7 +7,13 @@ from .tasks import send_mail_celery
 from .models import User
 
 class DukanAuthUtils:
-    pass
+    
+    def IsUsernameAvailable(self,request):
+        return User.objects.get(username=request.data["username"])
+
+    def IsEmailAvailable(self,request):
+        return User.objects.get(email=request.data["email"])
+
 
 
 class DukanAuth:
@@ -89,3 +95,52 @@ class DukanAuth:
         login(request,user)
         cache.delete(email)
         return Response({'status':200,'message':'successfully logged in.'})
+
+
+
+    def RegisterUser(self,request):
+        data = request.data
+        first_name = data.get("first_name")
+        last_name = data.get("last_name")
+        email = data.get("email")
+        username = data.get("username")
+        password = data.get("password")
+        cnfrpassword = data.get("cnfrpassword")
+        # access data
+        # validate data
+        otp = randint(100000,999999)
+        send_mail_celery.delay(
+                        to=[email],
+
+                        subject=f'''Hey {first_name}! Your OTP is here for login on apnidukan.''',
+
+                        message = f"""Your One time Password for Register is {otp}.\n\nPlease Don't share the
+                                    password with anyone.\n\nThanks & Regards\nTeam Apni Dukaan"""
+                    )
+        context = {
+            "first_name": first_name,
+            "last_name": last_name,
+            "email": email,
+            "username": username,
+            "password": password,
+            "otp": otp
+        }
+        cache.set(email,context,300)
+        return Response({'status':200,'message':'OTP sent on provided mail id please verify to continue.'})
+
+
+    
+    def ValidateRegisterUser(self,request):
+        email = request.data.get('email')
+        try:
+            otp = int(request.data.get('otp').strip())
+        except:
+            return Response({'status':400,'message':'Empty OTP or Invalid OTP provided.'})
+        data = cache.get(email)
+        if not data:
+            raise UserNotExists()
+        if data['otp'] == otp:
+            # save the models here
+            return Response({'status':200,'message':'successfully created account.'})
+        else:
+            return Response({'status':200,'message':'OTP did not match.'})
