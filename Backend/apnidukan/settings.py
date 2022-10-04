@@ -96,7 +96,14 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+# add hashing using pips
+#for BCryptSHA256PasswordHasher do 'pip install bcrypt'
+# for Argon security hasher do 'pip install django[argon2]'
+PASSWORD_HASHERS=[
+	'django.contrib.auth.hashers.Argon2PasswordHasher',
+	'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+	'django.contrib.auth.hashers.BCryptPasswordHasher',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
