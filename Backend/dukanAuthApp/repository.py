@@ -2,12 +2,30 @@ from .exceptions import InvalidCredentials,WaitTimeError,UserNotExists
 from django.contrib.auth import authenticate,login
 from rest_framework.response import Response
 from django.core.cache import cache
-from random import randint
+from random import randint, choices
 from .tasks import send_mail_celery
 from .models import User
+from django.conf import settings
+from django.contrib.auth.password_validation import validate_password
 
 class DukanAuthUtils:
-    pass
+    
+    def IsUsernameAvailable(self,request):
+        return User.objects.get(username=request.data["username"])
+
+    def IsEmailAvailable(self,request):
+        return User.objects.get(email=request.data["email"])
+
+    def GenerateSlug(self,length):
+        valid_chars = settings.VALID_CHARS
+        return "".join(choices(valid_chars,k=length))
+
+    def isWeakPassword(self,password):
+        '''
+            Returns None or Raise Validation Err
+        '''
+        return validate_password(password)
+
 
 
 class DukanAuth:
@@ -89,3 +107,113 @@ class DukanAuth:
         login(request,user)
         cache.delete(email)
         return Response({'status':200,'message':'successfully logged in.'})
+
+
+
+    def RegisterUser(self,request):
+        data = request.data
+        first_name = data.get("first_name")
+        last_name = data.get("last_name")
+        email = data.get("email")
+        username = data.get("username")
+        password = data.get("password")
+        cnfrpassword = data.get("cnfrpassword")
+        # access data
+        # validate data
+        otp = randint(100000,999999)
+        send_mail_celery.delay(
+                        to=[email],
+
+                        subject=f'''Hey {first_name}! Your OTP is here for login on apnidukan.''',
+
+                        message = f"""Your One time Password for Register is {otp}.\n\nPlease Don't share the
+                                    password with anyone.\n\nThanks & Regards\nTeam Apni Dukaan"""
+                    )
+        context = {
+            "first_name": first_name,
+            "last_name": last_name,
+            "email": email,
+            "username": username,
+            "password": password,
+            "otp": otp
+        }
+        cache.set(email,context,300)
+        return Response({'status':200,'message':'OTP sent on provided mail id please verify to continue.'})
+
+
+    
+    def ValidateRegisterUser(self,request):
+        email = request.data.get('email')
+        try:
+            otp = int(request.data.get('otp').strip())
+        except:
+            return Response({'status':400,'message':'Empty OTP or Invalid OTP provided.'})
+        data = cache.get(email)
+        if not data:
+            raise UserNotExists()
+        if data['otp'] == otp:
+            # save the models here
+            cache.delete(email)
+            return Response({'status':200,'message':'successfully created account.'})
+        else:
+            return Response({'status':200,'message':'OTP did not match.'})
+
+
+
+    def RecoverAccount(self,request):
+        email = email=request.data['email']
+        if '@' in email:
+            user = User.objects.get(email=email)
+            email = user.email
+        else:
+            user = User.objects.get(username=email)
+            email = user.email
+        if cache.get(email):
+            return Response({'status':'you have one pending request please try after 5 minutes.'})
+        else:
+            rint = randint(70,120)
+            token = DukanAuthUtils().GenerateSlug(rint)
+            cache.set(email,token,300)
+            print(token)
+            # send email
+            send_mail_celery.delay(
+                        to=[email],
+
+                        subject=f'''Dear {user.username}! Your Password Reset Link is here for apnidukan.''',
+
+                        message = f"""Your One time Password Reset Link is http://127.0.0.1:8000/reset/{token}.\n\nPlease Don't share the
+                                    Link with anyone.\n\nThanks & Regards\nTeam Apni Dukaan"""
+                    )
+            return Response({'status':200,'message':'Reset Link has been sent on email.'})
+
+
+
+    def ValidateRecoverToken(self,request,*args,**kwargs):
+        email = request.data['email']
+        token = request.data['token']
+        password = request.data['password']
+        cpassword = request.data['cpassword']
+        if '@' in email:
+            user = User.objects.get(email=email)
+            email = user.email
+        else:
+            user = User.objects.get(username=email)
+            email = user.email
+        if not cache.get(email):
+            return Response({'status':'Looks Like the Link has Expired or you\'ve not generated it.'})
+        if cache.get(email).strip()!=token.strip():
+            return Response({'status':'Invalid Token or Expired please Retry.'})
+        DukanAuthUtils().isWeakPassword(password)
+        if password != cpassword:
+            return Response({'status':404,'message':'Both Password does not match.'})
+        user.set_password(password)
+        user.save()
+        send_mail_celery.delay(
+                        to=[email],
+
+                        subject=f'''Hey {user.username}! Your password has been changed on apnidukan.''',
+
+                        message = f"""Hey {user.username}! Your password has been changed on apnidukan.\n\n\n\nThanks&Regards\n\nApniDukan"""
+                    )
+        cache.delete(email)
+        return Response({'status':'success','message':'Password Change success!'})

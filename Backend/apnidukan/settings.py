@@ -169,7 +169,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 
 AUTH_USER_MODEL = "dukanAuthApp.User"
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['application/json']
@@ -187,3 +187,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "no.reply.apni.dukaan@gmail.com"
 EMAIL_HOST_PASSWORD = config("PASS_MAIL")
 EMAIL_USE_TLS = True
+
+VALID_CHARS = [str(i) for i in range(0,10)] + [chr(i) for i in range(65,91)] + [chr(i) for i in range(97,123)]
