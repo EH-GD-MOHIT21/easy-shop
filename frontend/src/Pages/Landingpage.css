@@ -1,0 +1,86 @@
+.Landingpage{
+    background-color: #262626;
+   height: auto;
+    color: white;
+    overflow: hidden;
+}
+.Landing_page{
+    width: 80%;
+    margin: auto;
+    height: 100vh;
+}
+
+.Landingpage_Header{
+    
+    background-color: #262626;
+  padding: 20px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.Landing_Header_right{
+    display: flex;
+    align-items: center;
+}
+.Sign_btn{
+    margin-right: 22px;
+    font-size: 18px;
+    font-weight: 550;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition-duration: 220ms;
+}
+.Sign_btn:hover{
+  text-decoration: underline;
+}
+
+.Landing_Header_left{
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    font-weight: 550;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+.Apni_dukan_icon{
+    height: 34px !important;
+    width: 34px !important;
+    margin-top: 4px;
+    background-color: #9c27b0;
+    padding: 8px;
+    border-radius: 50%;
+}
+.dukan_logo{
+   margin-right: 8px;
+}
+.Landingpage_Body{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4rem;
+    
+}
+.Landingpage_Body_right, .Landingpage_Body_left{
+    width: 100%;
+}
+.Landing_shoping_img{
+    width: 100%;
+    margin-left: 9rem;
+    
+}
+.landing_page_heading{
+    margin-bottom: 2rem;
+    font-size: 3rem;
+    word-spacing: 3px;
+}
+.Landingpage_text{
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.Landing_Slling{
+    color: #9c27b0;
+}
+.LAnding_left_body{
+    margin-bottom: auto;
+}
