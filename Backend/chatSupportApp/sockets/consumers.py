@@ -63,3 +63,82 @@ class MyASyncConsumer(AsyncWebsocketConsumer):
             'updation':'no',
             'username':event['username'],
         }))
+
+    async def chat_message(self,event):
+        await self.send(text_data=json.dumps({
+            'msg':event['message'],
+            'status':'yes',
+            'updation':'no',
+            'username':event['username'],
+        }))
+    
+    async def receive(self,text_data=None,bytes_data=None):
+        print('message recived succesfully...',text_data)
+        data=json.loads(text_data)
+        message=data['msg']
+        user1 = self.scope["user"]
+        chat=Chat(
+            user=user1,
+            group=self.group_name  ,
+            message=data['msg'],
+            timestamp=datetime.datetime.now(timezone.utc)
+        )
+        await database_sync_to_async(chat.save)()
+        await self.channel_layer.group_send(
+            self.group_name,
+            {
+            'type':'chat1.message',
+            'message': message,
+            'username': user1.username,
+            }
+        )
+    async def chat1_message(self,event):
+        await self.send(text_data=json.dumps({
+            'msg':event['message'],
+            'status':'yes',
+            'updation':'no',
+            'username':event['username'],
+        }))
+    @sync_to_async
+    def get_all_queues(self):
+        return list(Queue.objects.all())
+         
+    async def disconnect(self,event):
+        print('websocket disconnected...',event)
+        user = self.scope['user']
+        if user.is_anonymous:
+            await self.close()
+        elif(user.staff == False):  
+            await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    'type':'chat5.message',
+                    'message': "User left Please refresh Page to Chat to new user",
+                    'username': user.username      
+                }
+            )
+            await sync_to_async(views.remove_queue1)(user)
+            for i in await self.get_all_queues():
+                queue_info = await sync_to_async(views.get_queue)(i) 
+                await self.channel_layer.group_send(
+                queue_info['grp_name'],
+                {
+                'type':'chat3.message',
+                'message': f"{queue_info['queue_length']}",
+                })
+    async def chat3_message(self,event):
+        await self.send(text_data=json.dumps({
+            'msg':event['message'],
+            'status':'no',
+            'updation':'yes',
+        }))
+    async def chat5_message(self,event):
+        await self.send(text_data=json.dumps({
+            'msg':event['message'],
+            'username':event['username'],
+        }))
+        self.channel_layer.group_discard(
+            self.group_name,
+            self.channel_name
+        )
+        raise StopConsumer
