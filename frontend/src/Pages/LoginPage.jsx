@@ -5,11 +5,13 @@ import "./LoginPage.css"
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import { fontSize } from '@mui/system';
+import { useState } from 'react';
 
 
 
 const useStyles = makeStyles(theme => ({
   input: {
+      color: "white !important",
     '&::placeholder': {
       color: "white !important"
     },
@@ -20,8 +22,41 @@ const useStyles = makeStyles(theme => ({
     marginTop:"20px !important" 
   }
 }))
+
+
 export default function LoginPage() {
   const classes = useStyles();
+  const [username,setuserEmail] = useState('');
+  const [password,setuserPasswaord] = useState('');
+  const [otp, setuserOTP] = useState('');
+  const [optInput,setoptInput] = useState(true);
+  const [loginUrl,setloginUrl] = useState('http://127.0.0.1:8000/login');
+  async function loginUser(event){
+    event.preventDefault();
+    const data = { username,password,otp };
+    console.log(data);
+    let response = await fetch(loginUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    if (response.ok) {
+        let res = await response.json();
+        console.log(res);
+        if(res['message']=='OTP delivered successfully.' || res['message']=='The OTP has already sent please wait for 5 minutes before retry.'){
+          setoptInput(false);
+          setloginUrl('http://127.0.0.1:8000/validate/login')
+        }else if(res['message']=='User logged in successfully.'){
+          // save details and redirect user
+        }else{
+          // invalid credentials show error on page.
+        }
+    }else{
+        console.error('Error:', response.status);
+    };
+  }
   return (
     <div className='Loginpages'>
       <div className='LoginPage'>
@@ -31,10 +66,12 @@ export default function LoginPage() {
         </div>
         <div className='user-input'>
           <form autoComplete='off'>
+          {optInput ?  
+          <>
             <TextField
               placeholder="Enter your E-mail"
               type="email"
-
+              onChange={(e)=>setuserEmail(e.target.value)}
               fullWidth
               size="large"
               margin="normal"
@@ -48,6 +85,7 @@ export default function LoginPage() {
               placeholder="Enter your Password"
               id="outlined-size-small"
               fullWidth
+              onChange={(e)=>setuserPasswaord(e.target.value)}
               size="large"
               type={"password"}
               required
@@ -57,7 +95,28 @@ export default function LoginPage() {
               }}
               color="secondary"
             />
-            <Button variant="outlined" color="secondary" className={classes.Submitbtn} fullWidth type='submit'>Submit</Button>
+
+            </> :    
+            <>
+             <TextField
+              placeholder="Enter your OTP"
+              id="outlined-size-small"
+              fullWidth
+              onChange={(e)=>setuserOTP(e.target.value)}
+              size="large"
+              type={"number"}
+              required
+              margin="normal"
+              InputProps={{
+                classes: { input: classes.input }
+              }}
+              color="secondary"
+            />
+             </>
+            }
+            <Button variant="outlined" color="secondary" className={classes.Submitbtn} fullWidth type='submit'
+            onClick={loginUser}
+            >Submit</Button>
           </form>
 
         </div>
