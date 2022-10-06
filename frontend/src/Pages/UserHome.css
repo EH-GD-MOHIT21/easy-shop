@@ -1,0 +1,16 @@
+.UserHome{
+    height: 100vh;
+    background-color: gray;
+    display: grid;
+    grid-template-columns: 15% 85%;
+}
+
+.LeftBar{
+    box-shadow: rgb(71, 85, 105, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    background-color: #212121;
+    padding: 8px;
+}
+.RightBar{
+    background-color: #cbd5e1;
+ 
+}
