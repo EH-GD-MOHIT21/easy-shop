@@ -181,7 +181,7 @@ class DukanAuth:
 
                         subject=f'''Dear {user.username}! Your Password Reset Link is here for apnidukan.''',
 
-                        message = f"""Your One time Password Reset Link is http://127.0.0.1:8000/reset/{token}.\n\nPlease Don't share the
+                        message = f"""Your One time Password Reset Link is http://127.0.0.1:8000/Verify/{token}.\n\nPlease Don't share the
                                     Link with anyone.\n\nThanks & Regards\nTeam Apni Dukaan"""
                     )
             return Response({'status':200,'message':'Reset Link has been sent on email.'})
