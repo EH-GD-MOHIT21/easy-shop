@@ -22,7 +22,7 @@ function App() {
       <Route path="ForgotPassword" element={<ForgotPassword />} />
       <Route path="CreateAccount" element={<CreateAccount />} />
       <Route path="/UserHome/*" element={<UserHome />} />
-      <Route path="/Verify/:VerifyId" element={<Verify />} />
+      <Route path="/Verify/:token/:email" element={<Verify />} />
     </Routes>
   </BrowserRouter>
     </div>
