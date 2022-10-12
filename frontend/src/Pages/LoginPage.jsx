@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { fontSize } from '@mui/system';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 
@@ -124,7 +125,10 @@ export default function LoginPage() {
 
         </div>
         <div>
-          <div className='forgotPassword'>Fortgot Password</div>
+          <div className='forgotPassword'>
+            <Link to="/CreateAccount">Create an account</Link>
+            <Link to="/ForgotPassword">Forgot Password</Link>
+          </div>
         </div>
       </div>
     </div>
