@@ -26,3 +26,7 @@
 * to signin using the credentials user need to verify through otp
 * in this page user can enter their otp and then login into their account
 <img src="/projectliveimages/7.png">
+
+* dashboard is the section where user can switch between the sections 
+* we created a user friendly dashboard where user can surf between various sections according to their requirements
+<img src="/projectliveimages/8.png">
