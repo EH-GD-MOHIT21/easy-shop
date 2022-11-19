@@ -6,6 +6,8 @@ import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import { fontSize } from '@mui/system';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 
@@ -26,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function LoginPage() {
   const classes = useStyles();
+  const navigate = useNavigate();
   const [username,setuserEmail] = useState('');
   const [password,setuserPasswaord] = useState('');
   const [otp, setuserOTP] = useState('');
@@ -48,8 +51,9 @@ export default function LoginPage() {
         if(res['message']=='OTP delivered successfully.' || res['message']=='The OTP has already sent please wait for 5 minutes before retry.'){
           setoptInput(false);
           setloginUrl('http://127.0.0.1:8000/validate/login')
-        }else if(res['message']=='User logged in successfully.'){
+        }else if(res['message']=='User logged in successfully.' || res['message']=='successfully logged in.'){
           // save details and redirect user
+          navigate("/UserHome/Home")
         }else{
           // invalid credentials show error on page.
         }
@@ -121,7 +125,10 @@ export default function LoginPage() {
 
         </div>
         <div>
-          <div className='forgotPassword'>Fortgot Password</div>
+          <div className='forgotPassword'>
+            <Link to="/CreateAccount">Create an account</Link>
+            <Link to="/ForgotPassword">Forgot Password</Link>
+          </div>
         </div>
       </div>
     </div>
