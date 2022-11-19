@@ -1,0 +1,91 @@
+.BackArrow{
+    color: white;
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.Addprroducts{
+    color: wheat;
+}
+.addproduct_left_header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 22px;
+  
+}
+
+.addProductHeader{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    background-color: #424242; padding: 18px 12px;
+   border-radius: 8px;
+}
+
+.addProductText{
+    margin-left:12px ;
+}
+
+.Icon_Button{
+    background-color: #424242 !important;
+}
+
+.Icon_Button:hover{
+    background-color: #9c27b0 !important;
+}
+.Add_product_body{
+    margin-top: 18px;
+}
+
+.productInformation{
+padding: 12px 18px;
+color: white;
+background-color: #424242;
+border-radius: 8px;
+
+}
+
+.productInfo_Header{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 16px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid gray;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    background-color: #424242;
+    color: white;
+    font-size: 16px;
+  }
+  
+  input[type=text]:focus {
+    border: 3px solid #9c27b0;
+    outline: none;
+  }
+
+  ::placeholder { 
+    color: white;
+    opacity: 1; 
+  }
+
+  .label{
+    margin: 14px 0px 6px 0px;
+  }
+
+  .product_pricing{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .product_pricing_child{
+    width: 45%;
+  }

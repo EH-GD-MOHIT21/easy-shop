@@ -9,7 +9,8 @@ import Google from "./Pages/Google";
 import HomeAcsses from "./Pages/HomeAcsses";
 import Landingpage from "./Pages/Landingpage";
 import LoginPage from "./Pages/LoginPage";
-import HomeAcsses from "./Pages/HomeAcsses";
+import UserHome from "./Pages/UserHome";
+
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
       <Route path="userLogin" element={<LoginPage />} />
       <Route path="ForgotPassword" element={<ForgotPassword />} />
       <Route path="CreateAccount" element={<CreateAccount />} />
-      <Route path="HomeAcsses" element={<HomeAcsses/>} />
+      <Route path="UserHome/*" element={<UserHome/>} />
     </Routes>
   </BrowserRouter>
     </div>
