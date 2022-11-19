@@ -190,3 +190,7 @@ EMAIL_HOST_PASSWORD = config("PASS_MAIL")
 EMAIL_USE_TLS = True
 
 VALID_CHARS = [str(i) for i in range(0,10)] + [chr(i) for i in range(65,91)] + [chr(i) for i in range(97,123)]
+
+# RAZOR PAY DUMMY CREDENTIALS
+RAZOR_KEY_ID = "rzp_test_48HADa6gNmd6ks"
+RAZOR_KEY_SECRET = "cs3QfR8Wb6WQ7ZidL5Fr5P29"

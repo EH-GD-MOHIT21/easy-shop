@@ -49,6 +49,7 @@ export default function LoginPage() {
         let res = await response.json();
         console.log(res);
         if(res['message']=='OTP delivered successfully.' || res['message']=='The OTP has already sent please wait for 5 minutes before retry.'){
+          document.getElementById('logindiv').style.boxShadow = '#9c27b0 0px 1px 0px, #9c27b0 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px';
           setoptInput(false);
           setloginUrl('http://127.0.0.1:8000/validate/login')
         }else if(res['message']=='User logged in successfully.' || res['message']=='successfully logged in.'){
@@ -56,6 +57,7 @@ export default function LoginPage() {
           navigate("/UserHome/Home")
         }else{
           // invalid credentials show error on page.
+          document.getElementById('logindiv').style.boxShadow = 'crimson 0px 1px 0px, crimson 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px';
         }
     }else{
         console.error('Error:', response.status);
@@ -63,7 +65,7 @@ export default function LoginPage() {
   }
   return (
     <div className='Loginpages'>
-      <div className='LoginPage'>
+      <div className='LoginPage' id="logindiv">
         <div className='Login_logo' >
           <p>Apni <span className='dukan_logo'>Dukaan</span></p>
           <p><ShoppingBagIcon className='Apni_dukan_icon' /></p>
