@@ -1,4 +1,0 @@
-workon pinu
-celery -A apnidukan.celery worker -l info -c 3 -P eventlet
-python manage.py runserver
-redis-server.exe

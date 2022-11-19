@@ -1,4 +1,4 @@
-.Loginpages{
+.Loginpages {
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -6,16 +6,16 @@
     background-color: #262626;
 }
 
-.LoginPage{
+.LoginPage {
     background-color: #262626;
     padding: 50px;
     width: 450px;
     border-radius: 6px;
-    box-shadow:  #9c27b0 0px 1px 0px,  #9c27b0 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    box-shadow: #9c27b0 0px 1px 0px, #9c27b0 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
 }
 
-.Login_logo{
-display: flex;
+.Login_logo {
+    display: flex;
     align-items: center;
     font-size: 28px;
     font-weight: 550;
@@ -25,21 +25,27 @@ display: flex;
     margin-bottom: 22px;
 }
 
-.forgotPassword{
+.forgotPassword {
     margin-top: 22px;
     text-align: right;
     color: rgb(185, 177, 177);
     transition-duration: 260ms;
-    width: 30%;
-    margin-left: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.forgotPassword:hover{
+.forgotPassword a{
+    text-decoration: none;
+    color: white;
+}
+
+.forgotPassword a:hover {
     text-decoration: underline;
     cursor: pointer;
 }
 
-.welcome_user{
+.welcome_user {
     color: white;
     margin-bottom: 18px;
 }

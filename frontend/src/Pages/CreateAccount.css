@@ -1,32 +1,42 @@
 .stepar-parents {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
- 
-  }
-  .stepar {
-   color: white;
-    width: 60%;
-    margin: auto;
-    height: 80vh;
-    padding:  48px;
-    box-shadow:  #9c27b0 0px 1px 0px,  #9c27b0 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 
-  }
-  .steparheader {
-    margin-top: 12px;
-    margin-bottom: 15%;
-  }
-  .step-btn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 5%;
-  }
+}
 
-  .stepar-parents{
-    background-color: #262626;
+.stepar {
+  color: white;
+  width: 60%;
+  margin: auto;
+  height: 80vh;
+  padding: 48px;
+  box-shadow: #9c27b0 0px 1px 0px, #9c27b0 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
 
-  }
+}
 
+.steparheader {
+  margin-top: 12px;
+  margin-bottom: 15%;
+}
+
+.step-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.stepar-parents {
+  background-color: #262626;
+
+}
+
+input {
+  color: white !important;
+}
+
+a {
+  color: white !important;
+}

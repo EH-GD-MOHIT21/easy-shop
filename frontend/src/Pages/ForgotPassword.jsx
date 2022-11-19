@@ -5,10 +5,12 @@ import "./LoginPage.css"
 import { makeStyles } from '@mui/styles';
 import Button from '@mui/material/Button';
 import { fontSize } from '@mui/system';
+import { useState } from 'react';
 
 const useStyles = makeStyles(theme => ({
-    // this is how, we change placeholder
+
     input: {
+      color: "white !important",
       '&::placeholder': {
         color: "white !important"
       },
@@ -20,8 +22,25 @@ const useStyles = makeStyles(theme => ({
     }
   }))
 export default function ForgotPassword() {
-    const classes = useStyles();
-
+  const classes = useStyles();
+  const [email,setuserEmail] = useState('');
+  async function ForgetPassGenUser(event){
+    event.preventDefault();
+    const data = { email };
+    let response = await fetch("http://127.0.0.1:8000/recover", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    if (response.ok) {
+        let res = await response.json();
+        console.log(res);
+    }else{
+        console.error('Error:', response.status);
+    };
+  }
   return (
     <div className='Loginpages'>
       <div className='LoginPage'>
@@ -35,7 +54,7 @@ export default function ForgotPassword() {
             <TextField
               placeholder="Enter your E-mail"
               type="email"
-
+              onChange={(e)=>setuserEmail(e.target.value)}
               fullWidth
               size="large"
               margin="normal"
@@ -46,7 +65,7 @@ export default function ForgotPassword() {
               }}
             />
        
-            <Button variant="outlined" color="secondary" className={classes.Submitbtn} fullWidth type='submit'>Submit</Button>
+            <Button variant="outlined" color="secondary" className={classes.Submitbtn} fullWidth type='submit' onClick={ForgetPassGenUser}>Submit</Button>
           </form>
 
         </div>
