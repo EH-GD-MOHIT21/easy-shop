@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'drf_social_oauth2',
     'corsheaders',
     'django_celery_results',
+    'mainApp'
 ]
 
 MIDDLEWARE = [

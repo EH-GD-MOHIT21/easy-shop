@@ -109,8 +109,10 @@ class DukanAuth:
     def RegisterUser(self, request):
         data = request.data
         first_name = data.get("first_name")
+        middle_name = data.get("middle_name")
         last_name = data.get("last_name")
         email = data.get("email")
+        mob_name = data.get("mobile_no")
         username = data.get("username")
         password = data.get("password")
         cnfrpassword = data.get("cnfrpassword")
