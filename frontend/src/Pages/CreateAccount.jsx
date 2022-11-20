@@ -39,7 +39,7 @@ const useStyles = makeStyles({
   });
   
   function getSteps() {
-    return ["Full Name", "E-Mail", "Mobile Number", "PAN Number", "User Name"];
+    return ["Full Name", "E-Mail", "Mobile Number", "Create Password", "User Name"];
   }
 
 
@@ -72,16 +72,15 @@ const useStyles = makeStyles({
           name="middleName"
           render={({ field }) => (
             <TextField
-              id="first-name"
+              id="middle-name"
          
               variant="outlined"
-              placeholder="Enter Your First Name"
+              placeholder="Enter Your Middle Name"
               fullWidth
               // size="medium"
               margin="normal"
               color="secondary"
               {...field}
-              required
               InputProps={{
                 classes: { input: classes.input }
               }}
@@ -94,10 +93,10 @@ const useStyles = makeStyles({
           name="lastName"
           render={({ field }) => (
             <TextField
-              id="first-name"
+              id="last-name"
          
               variant="outlined"
-              placeholder="Enter Your First Name"
+              placeholder="Enter Your Last Name"
               fullWidth
               // size="medium"
               margin="normal"
@@ -180,15 +179,15 @@ const useStyles = makeStyles({
       <>
         <Controller
           control={control}
-          name="PANNumber"
+          name="password"
           render={({ field }) => (
             <TextField
-              id="PANNumber"
-              label="PAN Number"
+              id="password"
+              label="Password"
               color="secondary"
               variant="outlined"
-              type={"text"}
-              placeholder="Enter Your PAN Number"
+              type={"password"}
+              placeholder="Please Create a strong Password"
               required
               fullWidth
               margin="normal"
@@ -200,6 +199,31 @@ const useStyles = makeStyles({
             />
           )}
         />
+
+<Controller
+          control={control}
+          name="cpassword"
+          render={({ field }) => (
+            <TextField
+              id="cpassword"
+              label="Confirm password"
+              color="secondary"
+              variant="outlined"
+              type={"password"}
+              placeholder="Please Create a strong Password"
+              required
+              fullWidth
+              margin="normal"
+              {...field}
+              inputProps={{
+      maxLength: 10,
+      classes: { input: classes.input }
+    }}
+            />
+          )}
+        />
+
+
       </>
     );
   };
@@ -267,11 +291,13 @@ export default function CreateAccount() {
         lastName: "",
         emailAddress: "",
         phoneNumber: "",
-        PANNumber: "",
+        password: "",
+        cpassword: "",
         UserName: "",
       },
     });
     const [activeStep, setActiveStep] = useState(0);
+    const [reg_status, set_reg_status] = useState("Please Verify Your Email.")
     const [skippedSteps, setSkippedSteps] = useState([]);
     const steps = getSteps();
   
@@ -283,12 +309,30 @@ export default function CreateAccount() {
     const isStepSkipped = (step) => {
       return skippedSteps.includes(step);
     };
+
+
+    async function send_data(data){
+      let response = await fetch('http://127.0.0.1:8000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      if (response.ok) {
+        let res = await response.json();
+        set_reg_status(res['message']);
+        console.log(res);
+      }else{
+        console.error('Error:', response.status);
+      }
+    }
   
     const handleNext = (data) => {
       if (activeStep == steps.length - 1) {
-   
-        console.log(data);
-            setActiveStep(activeStep + 1);
+          console.log(data);
+          send_data(data);
+          setActiveStep(activeStep + 1);
           }
        else {
         setActiveStep(activeStep + 1);
@@ -342,7 +386,7 @@ export default function CreateAccount() {
   
           {activeStep === steps.length ? (
             <p >
-              Please Verify Your Email
+              {reg_status}
             </p>
           ) : (
             <>

@@ -14,6 +14,17 @@ class RegisterViewApi(APIView):
             return Response({'status': 404, 'message': str(e)})
 
 
+class ValidateUserRegisterApi(APIView):
+    def get(self,request,*args,**kwargs):
+        try:
+            if not request.user.is_authenticated:
+                return DukanAuth().ValidateRegisterUser(request,kwargs['email'],kwargs['token'])
+            else:
+                return Response({'status': 200, 'message': 'Already Logged in.'})
+        except Exception as e:
+            return Response({'status': 404, 'message': str(e)})
+
+
 class CheckForUsernameApi(APIView):
     def post(self, request, *args, **kwargs):
         try:
