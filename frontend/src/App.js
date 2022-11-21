@@ -3,10 +3,12 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import DesignOne from "./Designs/DesignOne";
+import DesignThree from "./Designs/DesignThree";
+import DesignTwo from "./Designs/DesignTwo";
 import CreateAccount from "./Pages/CreateAccount";
 import ForgotPassword from "./Pages/ForgotPassword";
 import Google from "./Pages/Google";
-import HomeAcsses from "./Pages/HomeAcsses";
 import Landingpage from "./Pages/Landingpage";
 import LoginPage from "./Pages/LoginPage";
 import UserHome from "./Pages/UserHome";
@@ -22,6 +24,9 @@ function App() {
       <Route path="ForgotPassword" element={<ForgotPassword />} />
       <Route path="CreateAccount" element={<CreateAccount />} />
       <Route path="UserHome/*" element={<UserHome/>} />
+      <Route path="RoutOne" element={<DesignOne/>} />
+      <Route path="RoutTwo" element={<DesignTwo/>} />
+      <Route path="RoutThree" element={<DesignThree/>} />
     </Routes>
   </BrowserRouter>
     </div>

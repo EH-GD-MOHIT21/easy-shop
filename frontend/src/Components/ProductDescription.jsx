@@ -4,6 +4,7 @@ export default function ProductDescription({ initialValue, getValue }) {
     const editor = useRef(null);
 
     return (
+        
         <JoditEditor
         className="ProductDescription"
 			ref={editor}

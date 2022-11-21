@@ -29,7 +29,7 @@ code {
   color: #cbd5e1;
 }
 .ProductDescription{
-color: red;
+color: red !important;
 
 background-color: aqua;
 width: 100% !important;
