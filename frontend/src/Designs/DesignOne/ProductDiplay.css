@@ -1,0 +1,83 @@
+.ProductDiplay{
+    width: 70%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 15% 40% 40%;
+    grid-gap: 5px;
+}
+
+.Zoom_img{
+    width: 100%;
+}
+.productDisplay_last{
+padding: 16px;
+}
+
+.Display_title{
+    font-size: 2rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.Product_price{
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+.Size{
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.display_discription{
+    padding: 12px;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin: 16px  0px;
+    height: 200px;
+    overflow: auto;
+    padding-left: 0;
+}
+
+.Display_details_bottom{
+    padding: 16px 0px ;
+    display: grid;
+    grid-template-columns: 40% 40%;
+    justify-content: space-around;
+}
+
+.Wish{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition-duration: 220ms;
+    padding: 12px;
+}
+.Wish:hover{
+    background-color: rgb(52, 51, 51);
+    cursor: pointer;
+}
+.add_bags{
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 12px;
+    text-align: center;
+    font-weight: 600;
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    transition-duration: 220ms;
+}
+
+.add_bags:hover{
+    background-color: rgb(52, 51, 51);
+    color: white;
+}

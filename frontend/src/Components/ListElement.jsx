@@ -5,12 +5,17 @@ import GridViewIcon from '@mui/icons-material/GridView';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import TuneIcon from '@mui/icons-material/Tune';
-
+import AddIcon from '@mui/icons-material/Add';
 const menuItems = [
     {
       text: "Home",
       icon: <HomeIcon className='listColor' />,
       path: "/UserHome/Home",
+    },
+    {
+      text: "Add Dukaan",
+      icon: <AddIcon className='listColor' />,
+      path: "/UserHome/addDukaan",
     },
     {
       text: "Orders",

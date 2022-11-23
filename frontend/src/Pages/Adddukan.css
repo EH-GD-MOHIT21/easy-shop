@@ -1,0 +1,26 @@
+.Ext_dukaan{
+    font-size: 2rem;
+    font-weight: 600;
+}
+.Existing_Dukaans{
+    margin-top: 26px;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    grid-gap: 70px;
+    height: auto;
+    margin-bottom: 26px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 8px;
+}
+
+.Existing_Dukaan{
+    width: 100%;
+}
+
+.Existing_Dukaan_logo{
+    width: 100%;
+}
+
+.Add_product_sextion{
+    margin: 32px 0px;
+}

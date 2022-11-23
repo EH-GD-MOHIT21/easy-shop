@@ -49,6 +49,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Productpage from './Productpage';
+import AddDukaan from './AddDukaan';
 
 
 const drawerWidth = 240;
@@ -171,6 +172,7 @@ export default function MiniDrawer() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="Home" element={<Home />} />
+            <Route path="addDukaan" element={<AddDukaan />} />
             <Route path="Products/*" element={<Productpage />} />
             <Route path="Orders" element={<Orders />} />
             <Route path="Delivery" element={<Delivery />} />

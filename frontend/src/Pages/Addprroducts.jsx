@@ -64,7 +64,7 @@ export default function Addprroducts() {
     }
 const submitProductDetails = (e)=>{
    e.preventDefault();
-   const data = {productName,productCategory,producPrice,producPrice,Addvarient,imageList,productDescription}
+   const data = {productName,productCategory,producPrice,discountedPrice,Addvarient,imageList,productDescription}
    console.log(data)
 }
 console.log(productDescription)

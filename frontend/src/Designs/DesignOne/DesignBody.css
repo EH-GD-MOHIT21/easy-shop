@@ -1,0 +1,81 @@
+
+.DesignOneBody{
+    width: 70%;
+    margin: auto;
+    padding-bottom: 32px;
+}
+.Heading-Top{
+    font-size: 2rem;
+    font-weight: 600;
+   letter-spacing: 4px;
+   margin: 32px 0px;
+}
+.Category_Card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    width: 100%;
+    background-color: rgb(59, 59, 59);
+}
+
+.designCategory{
+    display: grid;
+    grid-template-columns: 25% 25% 25%;
+    grid-gap: 10%;
+}
+.Category_Card_Header{
+    width: 100%;
+}
+.Header_Img{
+    width: 100%;
+}
+
+.Category_Card_Body{
+    display:flex;
+    align-items:center ;
+    justify-content: space-around;
+    padding: 16px;
+    width: 100%;
+}
+
+.Product_Card_Body{
+    
+    padding: 16px;
+    width: 100%;
+    padding-bottom: 0;
+}
+
+.designCategory{
+    padding-bottom: 32px;
+}
+
+.product_title{
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;  
+  padding-left: 8px;
+}
+.product_price{
+    margin: 12px 0px;
+    color: white;
+    font-size: 0.90rem;
+    font-weight: 600;  
+    padding-left: 8px;
+}
+
+.Add_to_beg{
+    margin: 0;
+    padding: 12px;
+    color: whitesmoke;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid rgb(92, 91, 91);
+    cursor: pointer;
+
+    transition-duration: 220ms;
+}
+
+.Add_to_beg:hover{
+ background-color: rgb(37, 34, 34);
+}
