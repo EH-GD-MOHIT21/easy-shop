@@ -39,6 +39,9 @@ class Product(models.Model):
     description = models.TextField()
     images = models.ManyToManyField(Image)
     price = models.FloatField()
+    discounted_price = models.FloatField()
+    category = models.CharField(max_length=40)
+    additional_info = models.TextField()
 
 
 
