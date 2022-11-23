@@ -240,3 +240,33 @@ margin-top: 18px;
   margin: 18px 0px !important;
   border-radius: 20px !important;
 }
+
+.Mix_Productmedia_photos{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-bottom: 16px;
+}
+
+.productphotos{
+  height: 150px;
+  width: 150px;
+  background-color: #262626;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 22px;
+  overflow: hidden;
+}
+
+.product_images{
+  object-fit: contain;
+  width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

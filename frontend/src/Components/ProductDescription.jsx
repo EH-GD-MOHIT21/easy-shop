@@ -1,17 +1,19 @@
 import React, { useRef } from "react";
 import JoditEditor from 'jodit-react';
-export default function ProductDescription({ initialValue, getValue }) {
+export default function ProductDescription({setproductDescription}) {
     const editor = useRef(null);
-
+  const handleChange = (content) =>{
+	setproductDescription(content)
+  }
     return (
         
         <JoditEditor
         className="ProductDescription"
+		required
+		value=""
 			ref={editor}
-			value={initialValue}
-			// config={config}
-			tabIndex={2} // tabIndex of textarea
-			// onChange={newContent => {}}
+			config = {{ theme : 'dark',  }}
+			onChange = {(content)=> handleChange(content)}
 		/>
     );
 }

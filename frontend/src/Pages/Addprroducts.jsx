@@ -10,6 +10,7 @@ import { makeStyles } from '@mui/styles';
 import { useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import "./Addproducts.css"
+import { Alert } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
     accordian: {
@@ -20,18 +21,28 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 export default function Addprroducts() {
-    const [Addvarient, setAddvarient] = useState([]);
     const classes = useStyles();
+    const [productName, setproductName] = useState("");
+    const [productCategory, setproductCategory] = useState("");
+    const [producPrice, setproductPrice] = useState("");
+    const [discountedPrice, setDiscountedPrice] = useState("");
+    const [productDescription, setproductDescription] = useState("");
+    const [imageList, setimageList] = useState([]);
+    const [Addvarient, setAddvarient] = useState([]);
     const nevigate = useNavigate();
     const [shareImage, setshareImage] = useState("");
-    const [open, setOpen] = React.useState(false);
     const imagevalueChange = (e) => {
-        const image = e.target.files[0];
-
-        if (image === "" || image === undefined) {
-            alert(`Not an a image , the file is ${typeof image}`);
+        if (imageList.length > 8) {
+            Alert("Can't Add more Pics")
         }
-        setshareImage(image);
+        else {
+            const image = e.target.files[0];
+            if (image === "" || image === undefined) {
+                alert(`Not an a image , the file is ${typeof image}`);
+            }
+            setshareImage(image);
+            setimageList([...imageList, image])
+        }
     };
     const AddvarientComponent = () => {
         setAddvarient([...Addvarient, []])
@@ -46,13 +57,20 @@ export default function Addprroducts() {
         Addvarient[i]['value'] = e.target.value;
         setAddvarient(Addvarient)
     }
-   
-    const DeleteVarient = (idx) =>{
-        const newVarient = Addvarient.filter((data,id)=> id != idx);
+
+    const DeleteVarient = (idx) => {
+        const newVarient = Addvarient.filter((data, id) => id != idx);
         setAddvarient(newVarient)
     }
+const submitProductDetails = (e)=>{
+   e.preventDefault();
+   const data = {productName,productCategory,producPrice,producPrice,Addvarient,imageList,productDescription}
+   console.log(data)
+}
+console.log(productDescription)
     return (
         <div className='Addprroducts'>
+        <form onSubmit={submitProductDetails}>
             <div className='addProductHeader'>
                 <div>
                     <div className='addproduct_left_header'>
@@ -63,101 +81,126 @@ export default function Addprroducts() {
                         <p className='addProductText'>Add new product</p>
                     </div>
                 </div>
-                <Fab variant="extended" color="secondary" onClick={() => nevigate("/UserHome/Products/Addproducts")}>
+                <Fab variant="extended" color="secondary" onClick={() => nevigate("/UserHome/Products/Addproducts")} type="submit">
                     <AddIcon sx={{ mr: 1 }} />
                     Add Product
                 </Fab>
             </div>
             <div className='Add_product_body'>
-                <div className='productInformation'>
-                    <div className='productInfo_Header'>
-                        Product Information
-                    </div>
-                    <div className='productInfo_body'>
-                        <p className='label'>Product Name *
-                        </p>
-                        <input type="text" placeholder='Enter Product Name' className='productInfoInput' />
-                        <p className='label'>Product Category *
-                        </p>
-                        <input type="text" placeholder='Enter Product Category' className='productInfoInput' />
-                        <div className='product_pricing'>
-                            <div className='product_pricing_child'>
-                                <p className='label'>Product Name *
-                                </p>
-                                <input type="text" placeholder='Enter Product name' className='productInfoInput' />
-                            </div>
-                            <div className='product_pricing_child'> <p className='label'>Product Name *
+                
+                    <div className='productInformation'>
+                        <div className='productInfo_Header'>
+                            Product Information
+                        </div>
+                        <div className='productInfo_body'>
+                            <p className='label'>Product Name *
                             </p>
-                                <input type="text" placeholder='Enter Product name' className='productInfoInput' /></div>
-                        </div>
-                        <p className='label'>Product Description *
-                        </p>
-                        <ProductDescription />
-
-
-                    </div>
-
-                </div>
-
-                <div className='productInformation'>
-                    <p className='label'>Product Media (up to 8) *
-                    </p>
-                    <div className='productMedia'>
-                        <input
-                            type="file"
-                            accept="image/gif , image/jpeg , image/png"
-                            name="image"
-                            id="file"
-                            style={{ display: "none" }}
-                            onChange={imagevalueChange}
-
-                        />
-                        <div className='inputPhoto'>
-                            <label htmlFor="file" >
-                                <CameraEnhanceIcon className='camera_Icon' />
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div className='productInformation'>
-                    <div className='productvarient_Header'>
-                        Product Varients
-                    </div>
-                    <Fab variant="extended" color="secondary"
-                        className='fabButton_varients'
-                        onClick={AddvarientComponent}
-                    >
-                        <AddIcon sx={{ mr: 1 }} />
-                        Add Varients
-                    </Fab>
-                    {
-                        Addvarient.map((data, idx) => {
-                            return (
-                                <div className='product_varient' key={idx}>
-
-                                    <div className='product_pricing_child'>
-                                        <p className='label'>Additional Variants
-                                        </p>
-                                        <input type="text" placeholder='Enter additional Variants like color, size' onChange={(event) => handleChange(event, idx)} className='productInfoInput' />
-                                    </div>
-                                    <div className='product_pricing_child'> <p className='label'>Variants Value
+                            <input type="text" placeholder='Enter Product Name' className='productInfoInput' required onChange={(e)=>setproductName(e.target.value)} />
+                            <p className='label'>Product Category *
+                            </p>
+                            <input type="text" placeholder='Enter Product Category' className='productInfoInput' required onChange={(e)=>setproductCategory(e.target.value)} />
+                            <div className='product_pricing'>
+                                <div className='product_pricing_child'>
+                                    <p className='label'>Price *
                                     </p>
-                                        <input type="text" placeholder='Enter value like red, XXL ' className='productInfoInput'
-                                            onChange={(event) => handleChangeValues(event, idx)} />
-                                    </div>
-                                    <div>
-                                        <Fab size="small" color="secondary" aria-label="add" onClick={()=>DeleteVarient(idx)}>
-                                            <DeleteIcon />
-                                        </Fab>
-                                    </div>
+                                    <input type="number" placeholder='Enter Product Price' className='productInfoInput' required onChange = {(e)=>setproductPrice(e.target.value)} />
                                 </div>
-                            )
+                                <div className='product_pricing_child'> <p className='label'>Discounted Price
 
-                        })
-                    }
+                                </p>
+                                    <input type="number" placeholder='Enter Discounted Price' className='productInfoInput'
+                                    onChange = {(e)=>setDiscountedPrice(e.target.value)} required /></div>
+                            </div>
+                            <p className='label'>Product Description *
+                            </p>
+                            <ProductDescription  setproductDescription={setproductDescription} />
 
-                </div>
+
+                        </div>
+                       
+                    </div>
+
+                    <div className='productInformation'>
+                        <p className='label'>Product Media (up to 6) *
+                        </p>
+                        <div className='Mix_Productmedia_photos'>
+                            <div className='productMedia'>
+                                <input
+                                    type="file"
+                                    accept="image/gif , image/jpeg , image/png"
+                                    name="image"
+                                    id="file"
+                                    style={{ display: "none" }}
+                                    onChange={imagevalueChange}
+                                    required
+
+                                />
+                                <div className='inputPhoto'>
+                                    <label htmlFor="file" >
+                                        <CameraEnhanceIcon className='camera_Icon' />
+                                    </label>
+                                </div>
+                            </div>
+
+                            {
+                                imageList.length > 0 && (
+                                    imageList.map((data) => {
+                                        return (
+                                            <div className='productphotos'>
+                                                <div className='product_photo'>
+                                                    <img src={shareImage && URL.createObjectURL(data)} className="product_images" />
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                )
+                            }
+
+                        </div>
+                    </div>
+                    <div className='productInformation'>
+                        <div className='productvarient_Header'>
+                            Product Varients
+                        </div>
+                        <Fab variant="extended" color="secondary"
+                            className='fabButton_varients'
+                            onClick={AddvarientComponent}
+                        >
+                            <AddIcon sx={{ mr: 1 }} />
+                            Add Varients
+                        </Fab>
+                        {
+                            Addvarient.map((data, idx) => {
+                                return (
+                                    <div className='product_varient' key={idx}>
+
+                                        <div className='product_pricing_child'>
+                                            <p className='label'>Additional Variants
+                                            </p>
+                                            <input type="text" placeholder='Enter additional Variants like color, size' onChange={(event) => handleChange(event, idx)} className='productInfoInput' />
+                                        </div>
+                                        <div className='product_pricing_child'> <p className='label'>Variants Value
+                                        </p>
+                                            <input type="text" placeholder='Enter value like red, XXL ' className='productInfoInput'
+                                                onChange={(event) => handleChangeValues(event, idx)} />
+                                        </div>
+                                        <div>
+                                            <Fab size="small" color="secondary" aria-label="add" onClick={() => DeleteVarient(idx)}>
+                                                <DeleteIcon />
+                                            </Fab>
+                                        </div>
+                                    </div>
+                                )
+
+                            })
+                        }
+
+                    </div>
+               
+
+
             </div>
+            </form>
         </div>
 
 
