@@ -1,0 +1,33 @@
+.DesignAccount{
+    width: 70%;
+    margin: auto;
+}
+
+.DesignAccount_Header{
+    margin:22px 0px;
+}
+.DesignAccount_Header{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.Header-Link{
+    font-size: 22px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.Header-Link{
+    font-weight: 600;
+    padding: 18px;
+    transition-property: 220ms;
+}
+
+.Header-Link:hover{
+    background-color: rgb(63, 63, 63);
+    border-radius: 12px;
+ 
+}

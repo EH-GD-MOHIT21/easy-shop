@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Distressed&display=swap');
 .Design_One_Header{
-    padding:16px ;
+   
     font-size: 3rem;
     background-color: transparent !important;
     display:  flex;
@@ -8,10 +8,15 @@
     justify-content: space-between;
     box-shadow: whitesmoke 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     margin-bottom: 22px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #212121;
  
 }
 .Header_left{
     font-family: 'Rubik Distressed', cursive;
+    cursor: pointer;
 }
 .Design_Header_Icon{
     margin-right: 24px !important;
@@ -21,8 +26,10 @@
     width: 70%;
     display:  flex;
     align-items: center;
+    padding:16px ;
     justify-content: space-between;
     margin: auto;
+    background-color: #212121;
 }
 
 .Design_icon{

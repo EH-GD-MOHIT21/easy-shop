@@ -1,0 +1,39 @@
+.MyAddresses {
+    padding-bottom: 22px;
+}
+
+.UserInfoInput {
+    width: 100%;
+    padding: 16px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid gray;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    background-color: #424242;
+    color: white;
+    font-size: 16px;
+}
+
+.UserInfoInput:focus {
+    border: 3px solid white;
+    outline: none;
+}
+
+.Add_Address,.Add_more_Address {
+    display: block;
+    background-color: whitesmoke;
+    padding: 16px;
+    margin: 12px 0px;
+    font-size: 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #424242;
+    transition-duration: 220ms;
+}
+
+.Add_Address:hover, .Add_more_Address:hover{
+    background-color: #424242;
+    color:  whitesmoke;
+}
