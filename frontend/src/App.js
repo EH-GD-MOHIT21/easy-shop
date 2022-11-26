@@ -25,9 +25,8 @@ function App() {
       <Route path="ForgotPassword" element={<ForgotPassword />} />
       <Route path="CreateAccount" element={<CreateAccount />} />
       <Route path="UserHome/*" element={<UserHome/>} />
-      {/* <Route path="RoutOne" element={<DesignOne/>} /> */}
-      {/* <Route path="RoutTwo" element={<DesignTwo/>} /> */}
-      {/* <Route path="RoutThree" element={<DesignThree/>} /> */}
+      <Route path="DesignOne/*" element ={<DesignOne />} />
+
     </Routes>
   </BrowserRouter>
   

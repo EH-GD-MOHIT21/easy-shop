@@ -22,11 +22,11 @@ const menuItems = [
       icon: <FilterFramesIcon className='listColor' />,
       path: "/UserHome/Orders",
     },
-    {
-      text: "Delivery",
-      icon: <LocalShippingIcon className='listColor' />,
-      path: "/UserHome/Delivery",
-    },
+    // {
+    //   text: "Delivery",
+    //   icon: <LocalShippingIcon className='listColor' />,
+    //   path: "/UserHome/Delivery",
+    // },
     {
       text: "Products",
       icon: <GridViewIcon className='listColor' />,
