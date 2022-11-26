@@ -1,4 +1,4 @@
-from .models import Dukaan,DukaanOwner
+from .models import Dukaan,DukaanOwner,Product,Image
 from rest_framework.response import Response
 from .serializers import DukaanSerializer,DukaanOwnerSerializer
 
@@ -29,3 +29,35 @@ class DukanCreationUtils:
         owner_shop = cd_serializer.data
         other_owner_shop = od_serializer.data
         return Response({'status':200,'message':'success','owner_shop':owner_shop,'other_owner_shop':other_owner_shop})
+
+
+    def add_product(self,request):
+        user = request.user
+        name = request.data['productName']
+        dukaan = request.data['dukaan']
+        # check dukaan with user permission -- pending
+        desc = request.data['productDescription']
+        category = request.data['productCategory']
+        price = request.data['producPrice']
+        discountedPrice = request.data['discountedPrice']
+        imageList = request.data['imageList']
+        Addvarient = request.data['Addvarient']
+        model = Product()
+        model.dukaan = dukaan
+        model.name = name
+        model.description = desc
+        model.category = category
+        model.price = price
+        model.discounted_price = discountedPrice
+        model.additional_info = Addvarient
+        for image in imageList:
+            img = Image()
+            img.url = image
+            img.save()
+            model.images.add(img)
+        model.save()
+        return Response({'status':200,'message':'success'})
+
+    # list the products of a shop
+    def list_product(self,request,dukaan):
+        pass

@@ -24,3 +24,14 @@ class CreateOrGetDukaanAPI(APIView):
             return Response({'status':403,'message':'Please Authenticate Yourself to create dukaan.'})
         except Exception as e:
             return Response({'status':500,'message':str(e)})
+
+
+
+class ProductAPI(APIView):
+    # list product for shop
+    def get(self,request,*args,**kwargs):
+        pass
+
+    # create product for shop
+    def post(self,request,*args,**kwargs):
+        pass

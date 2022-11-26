@@ -8,6 +8,8 @@ from .models import User
 from django.conf import settings
 from django.contrib.auth.password_validation import validate_password
 import re
+from .serializers import UserSerializer
+from mainApp.repository import DukanCreationUtils
 
 
 class DukanAuthUtils:
@@ -236,3 +238,9 @@ class DukanAuth:
         )
         cache.delete(email)
         return Response({'status': 'success', 'message': 'Password Change success!'})
+
+
+    def UserDetails(self,request):
+        serializer = UserSerializer(request.user)
+        user_data = DukanCreationUtils().list_dukaan(request).data
+        return Response({'status':'success','basic_info':serializer.data,'owner_shop':user_data['owner_shop'],'other_owner_shop':user_data['other_owner_shop']})

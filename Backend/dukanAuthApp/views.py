@@ -79,3 +79,15 @@ class ValidateRecoverTokenApi(APIView):
             return DukanAuth().ValidateRecoverToken(request)
         except Exception as e:
             return Response({'status': 404, 'message': str(e)})
+
+
+class UserAccDetailsApi(APIView):
+    def get(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return DukanAuth().UserDetails(request)
+        return Response({'status':403,'message':'Please authenticate yourself to get details about you.'})
+
+
+    def patch(self,request,*args,**kwargs):
+        # update user details/ 2fa status
+        pass
