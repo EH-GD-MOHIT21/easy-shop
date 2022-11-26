@@ -1,0 +1,46 @@
+.dukaan_Home{
+    display: grid;
+    grid-template-columns: 25% 25% 25%;
+    justify-content: space-between;
+    margin-top: 32px;
+}
+
+.share_store_link,.store_total_sales,.store_views{
+    background-color: #424242;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.share_store_link_text{
+    color: white;
+    font-size: 1.5rem;
+    word-spacing: 4px;
+    margin-bottom: 6px;
+}
+
+.share_store_link_text2{
+    color: #c1c1c1;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.dukan_Link{
+    color: white;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-bottom: 8px;
+    transition-duration: 220ms;
+}
+
+.dukan_Link:hover{
+    color: rgb(168, 131, 203);
+}
+
+.share_dukaan{
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+}

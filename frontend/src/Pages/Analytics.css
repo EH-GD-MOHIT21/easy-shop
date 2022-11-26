@@ -1,0 +1,36 @@
+.Analytics_Header{
+    font-size: 1.5rem;
+    color: whitesmoke;
+    font-weight: 600;
+    letter-spacing: 2px;
+   background-color: #424242;
+   padding: 18px;
+   border-radius: 6px;
+   margin-bottom: 22px;
+}
+
+.Analytics_Body{
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20%;
+    justify-content: space-between;
+    margin-top: 48px;
+}
+
+.return_coutmer,.sales_per_day,.order_value,.order_per_day{
+    background-color: #424242;
+    padding: 18px;
+    border-radius: 6px;
+}
+
+.return_coutmer_text,.sales_per_day_text,.order_value_text,.order_per_day_text{
+   color: #d6d6d6;
+   font-size: 1.5rem;
+   margin-bottom: 16px;
+}
+
+.return_coutmer_number,.sales_per_day_number,.order_value_number,.order_per_day_number{
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    word-spacing: 3px;
+ }
