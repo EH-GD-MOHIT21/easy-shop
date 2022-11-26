@@ -10,7 +10,7 @@ from django.db.models.signals import pre_save
 # Create your models here.
 
 class Image(models.Model):
-    pass
+    url = models.ImageField(upload_to='imgs',null=True,blank=True)
 
 
 
@@ -41,7 +41,7 @@ class Product(models.Model):
     price = models.FloatField()
     discounted_price = models.FloatField()
     category = models.CharField(max_length=40)
-    additional_info = models.TextField()
+    additional_info = models.TextField(null=True,blank=True)
 
 
 

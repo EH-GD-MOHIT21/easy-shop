@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
+from .models import User
 
-
-
-class SignupSerializer(ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
-        pass
+        model = User
+        exclude = ["password"]
