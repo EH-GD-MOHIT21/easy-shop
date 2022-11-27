@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'drf_social_oauth2',
     'corsheaders',
     'django_celery_results',
-    'mainApp'
+    'mainApp',
+    'paymentsApp',
 ]
 
 MIDDLEWARE = [
@@ -200,3 +201,6 @@ RAZOR_KEY_SECRET = "cs3QfR8Wb6WQ7ZidL5Fr5P29"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+RAZOR_KEY_ID = "rzp_test_OG0pcamm8rxVEE"
+RAZOR_KEY_SECRET = "kbzFfbawhn9nvr17GTi6awKS"
