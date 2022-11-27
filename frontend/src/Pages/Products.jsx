@@ -10,13 +10,17 @@ import { useNavigate } from 'react-router-dom';
 const ProductList = ['Product', 'Price', 'Inventory', 'Status', 'Action']
 export default function ProductPage() {
   const nevigate = useNavigate();
+  const [selctDukaan,setSelectDukaan] = React.useState("")
   const ClickToSearch = () => {
     const search = document.querySelector(".search");
     const input = document.querySelector(".input");
     search.classList.toggle("active");
     input.focus();
   }
-
+const selectDukaan = (e)=>{
+  setSelectDukaan(e.target.value)
+}
+console.log(selctDukaan)
   return (
     <div className='product_page'>
       <div className='Product_Header'>
@@ -26,7 +30,15 @@ export default function ProductPage() {
             <SearchIcon className='Search_icon' />
           </button>
         </div>
-        <Fab variant="extended" color="secondary" onClick={() => nevigate("/UserHome/Products/Addproducts")}>
+        <div className='Select_dukaan'>
+          <select name="dukaan" required className='selct_dukaan' onChange={selectDukaan}>
+            <option value="" disabled selected hidden className='opt_dukaan'>Select a Dukaan</option>
+            <option value="coffee" className='opt_dukaan'>Coffee</option>
+            <option value="tea" className='opt_dukaan'>Tea</option>
+            <option value="milk" className='opt_dukaan'>Milk</option>
+          </select>
+        </div>
+        <Fab variant="extended" color="secondary" onClick={() => nevigate("/UserHome/Products/Addproducts")} disabled = {!selctDukaan ? true : false} >
           <AddIcon sx={{ mr: 1 }} />
           Add Product
         </Fab>

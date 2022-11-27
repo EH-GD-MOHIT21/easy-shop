@@ -83,3 +83,19 @@
     height: 400px;
     width: 400px;
 }
+
+.selct_dukaan{
+  background-color: #9c27b0;
+  padding: 16px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  outline: none;
+}
+
+.opt_dukaan{
+  background-color: #9c27b0;
+  padding: 16px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+

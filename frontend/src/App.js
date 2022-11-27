@@ -4,21 +4,20 @@ import {
   Route,
 } from "react-router-dom";
 import DesignOne from "./Designs/DesignOne/DesignOne";
-import DesignThree from "./Designs/DesignThree";
-import DesignTwo from "./Designs/DesignTwo";
 import CreateAccount from "./Pages/CreateAccount";
 import ForgotPassword from "./Pages/ForgotPassword";
 import Google from "./Pages/Google";
 import Landingpage from "./Pages/Landingpage";
 import LoginPage from "./Pages/LoginPage";
 import UserHome from "./Pages/UserHome";
-
+import RazorpayApp from "./RazorpayApi/RazorpayApp"
 
 function App() {
   return (
     <div className="App">
     {/* <DesignOne /> */}
-    <BrowserRouter>
+     {/* <RazorpayApp />  */}
+     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Landingpage />} />
       <Route path="userLogin" element={<LoginPage />} />
@@ -28,7 +27,7 @@ function App() {
       <Route path="DesignOne/*" element ={<DesignOne />} />
 
     </Routes>
-  </BrowserRouter>
+  </BrowserRouter> 
   
     </div>
   );

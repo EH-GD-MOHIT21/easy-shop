@@ -23,12 +23,13 @@ export default function DesignOne() {
             <Route path='Account/*' element={<DesignAccount />} />
             <Route path='Wishlist' element ={<WishList />} />
             <Route path='AddCart' element ={<AddCart />} />
+            <Route path='AllProducts' element ={<DesignOneProduct />} />
         
       </Routes>
-   
+      {/* <DesignOneProduct /> */}
       
-      {/* <DesignOneProduct />
-      <ProductDiplay /> */}
+      
+      {/* <ProductDiplay /> */}
     </div>
   )
 }

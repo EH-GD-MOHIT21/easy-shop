@@ -34,3 +34,22 @@
     margin-bottom: 16px;
     word-spacing: 3px;
  }
+ .Analytics_chart{
+    margin-top: 42px;
+    display: grid;
+    grid-template-columns: 45% 45%;
+    justify-content: space-between;
+    align-items: center;
+ }
+
+.TOTAL_oRDERS,.TOTALSALES{
+    background-color: #424242;
+    padding: 18px;
+    border-radius: 6px;
+}
+.total_orders{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 22px;
+    letter-spacing: 2px;
+}

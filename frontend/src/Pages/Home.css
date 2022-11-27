@@ -44,3 +44,15 @@
     justify-content: space-between;
     font-weight: 600;
 }
+
+.welcome_back{
+    margin-bottom: 22px;
+}
+
+.Total_sales{
+    font-size: 22px;
+}
+.Overview{
+    font-size: 1.4rem;
+    font-weight: 600;
+}
