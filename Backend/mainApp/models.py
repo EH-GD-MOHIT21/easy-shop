@@ -43,6 +43,14 @@ class Product(models.Model):
     category = models.CharField(max_length=40)
     additional_info = models.TextField(null=True,blank=True)
 
+class sub_cart(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+
+class Cart(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    sub_carts = models.ManyToManyField(sub_cart)
+
 
 
 
@@ -84,4 +92,6 @@ def pre_save_receiver(sender, instance, *args, **kwargs):
         instance.slug = unique_slug_generator(instance)
 
 pre_save.connect(pre_save_receiver, sender = Dukaan) 
+
+
     

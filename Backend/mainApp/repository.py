@@ -1,6 +1,6 @@
 from .models import Dukaan,DukaanOwner,Product,Image
 from rest_framework.response import Response
-from .serializers import DukaanSerializer,DukaanOwnerSerializer
+from .serializers import DukaanSerializer,DukaanOwnerSerializer,ProductSerializer
 
 class DukanCreationUtils:
     def create_dukaan(self,request):
@@ -61,3 +61,14 @@ class DukanCreationUtils:
     # list the products of a shop
     def list_product(self,request,dukaan):
         pass
+
+    def list_dukaan_category(self,request,slug):
+        dukaan = Dukaan.objects.get(slug=slug)
+        products = Product.objects.filter(dukaan=dukaan).distinct('category')
+        serializer = ProductSerializer(products,many=True)
+        return Response({'status':200,'message':'success','list_dukaan':serializer.data})
+        
+
+        
+
+
