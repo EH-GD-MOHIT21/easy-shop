@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Dukaan,DukaanOwner
+from .models import Dukaan,DukaanOwner,Product
 from rest_framework import serializers
 
 class DukaanSerializer(ModelSerializer):
@@ -22,3 +22,8 @@ class DukaanOwnerSerializer(ModelSerializer):
     class Meta:
         model = DukaanOwner
         fields = ["owner","perms","id","slug","creator","created_at","intro","description","logo","name","category","seller_address"]
+    
+class ProductSerializer(ModelSerializer):
+    class Meta:
+        model = Product
+        fields = "__all__"

@@ -50,4 +50,10 @@ class ProductAPI(APIView):
 
     # create product for shop
     def post(self,request,*args,**kwargs):
-        pass
+        return DukanCreationUtils().add_product(request)
+
+class ListDukaanCategoryAPI(APIView):
+    def get(self,request,*args,**kwargs):
+        slug = kwargs['slug']
+        return DukanCreationUtils().list_dukaan_category(request,slug)
+        
