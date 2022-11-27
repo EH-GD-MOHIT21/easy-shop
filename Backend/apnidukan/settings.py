@@ -68,6 +68,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",   
 ]
 
+CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
+
+CORS_ALLOW_CREDENTIALS = True
+
 ROOT_URLCONF = 'apnidukan.urls'
 
 TEMPLATES = [
@@ -200,3 +204,8 @@ MEDIA_URL = '/media/'
 
 RAZOR_KEY_ID = "rzp_test_OG0pcamm8rxVEE"
 RAZOR_KEY_SECRET = "kbzFfb8whm9nvr17GTi6awKS"
+
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True

@@ -45,7 +45,7 @@ class Product(models.Model):
 
 
 
-class sub_cart(models.Model):
+class SubCart(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
 
@@ -53,7 +53,7 @@ class sub_cart(models.Model):
 
 class Cart(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    sub_carts = models.ManyToManyField(sub_cart)
+    sub_carts = models.ManyToManyField(SubCart)
 
 
 

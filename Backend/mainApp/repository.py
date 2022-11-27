@@ -91,5 +91,9 @@ class DukaanAdditionUtils:
         
 
         
+class UserCartUtils:
+    def modify_cart(self,request):
+        pass
 
-
+    def list_cart_items(self,request):
+        pass
