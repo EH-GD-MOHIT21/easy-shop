@@ -15,10 +15,27 @@ from mainApp.repository import DukanCreationUtils
 class DukanAuthUtils:
 
     def IsUsernameAvailable(self, request):
-        return User.objects.get(username=request.data["username"])
+        username = request.data["username"]
+        if User.objects.filter(username=username).exists():
+            return False
+        username_validation = True
+        username_cntr = 0
+        for letter in username:
+            username_cntr += 1
+            if letter.isalpha() or letter.isdigit() or letter == '_':
+                continue
+            else:
+                username_validation = False
+                break
+        if not username_validation or username_cntr > 15:
+            return False
+        return True
 
     def IsEmailAvailable(self, request):
-        return User.objects.get(email=request.data["email"])
+        regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+        if not re.fullmatch(regex,request.data["email"]) or User.objects.filter(email=request.data["email"]).exists():
+            return False
+        return True
 
     def GenerateSlug(self, length):
         valid_chars = settings.VALID_CHARS
