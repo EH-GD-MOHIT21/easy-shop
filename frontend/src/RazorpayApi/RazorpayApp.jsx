@@ -49,7 +49,7 @@ function RazorpayApp() {
 
     
 		const options = {
-            key: "Kl5XBODxdEQOAE", // Enter the Key ID generated from the Dashboard
+            key: "rzp_test_OG0pcamm8rxVEE", // Enter the Key ID generated from the Dashboard
             amount: amount.toString(),
             currency: currency,
             name: "Test Company",

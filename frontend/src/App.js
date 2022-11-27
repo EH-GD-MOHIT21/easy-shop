@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
     {/* <DesignOne /> */}
-     {/* <RazorpayApp />  */}
+     <RazorpayApp /> 
      <BrowserRouter>
     <Routes>
       <Route path="/" element={<Landingpage />} />

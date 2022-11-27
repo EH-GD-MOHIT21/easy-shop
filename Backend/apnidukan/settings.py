@@ -195,12 +195,8 @@ EMAIL_USE_TLS = True
 VALID_CHARS = [str(i) for i in range(0,10)] + [chr(i) for i in range(65,91)] + [chr(i) for i in range(97,123)]
 
 # RAZOR PAY DUMMY CREDENTIALS
-RAZOR_KEY_ID = "rzp_test_48HADa6gNmd6ks"
-RAZOR_KEY_SECRET = "cs3QfR8Wb6WQ7ZidL5Fr5P29"
-
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 RAZOR_KEY_ID = "rzp_test_OG0pcamm8rxVEE"
-RAZOR_KEY_SECRET = "kbzFfbawhn9nvr17GTi6awKS"
+RAZOR_KEY_SECRET = "kbzFfb8whm9nvr17GTi6awKS"
