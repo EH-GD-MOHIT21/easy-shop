@@ -244,3 +244,16 @@ class DukanAuth:
         serializer = UserSerializer(request.user)
         user_data = DukanCreationUtils().list_dukaan(request).data
         return Response({'status':'success','basic_info':serializer.data,'owner_shop':user_data['owner_shop'],'other_owner_shop':user_data['other_owner_shop']})
+    
+    def UpdateUserDetails(self,request):
+        data = request.data.get('username',0)
+        data1 = request.data.get('email',0)
+        data2 = request.data.get('password',0)
+        if(data or data1 or data2):
+            return Response({'status':200,'message': 'One of fields is not updatable'})
+        serializer = UserSerializer(request.user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return self.UserDetails(request)
+        else:
+            return Response({'status':404,'message': 'Invalid data'})

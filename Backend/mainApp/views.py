@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .repository import DukanCreationUtils
+from .repository import DukanCreationUtils,DukaanAdditionUtils
 
 # Create your views here.
 
@@ -24,6 +24,22 @@ class CreateOrGetDukaanAPI(APIView):
             return Response({'status':403,'message':'Please Authenticate Yourself to create dukaan.'})
         except Exception as e:
             return Response({'status':500,'message':str(e)})
+
+
+
+class WishlistAPI(APIView):
+
+    def get(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return DukaanAdditionUtils().list_wishlist(request)
+        return Response({'status':403,'message':'You need to be authorised to perform this action.'})
+
+
+    def post(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return DukaanAdditionUtils().add_to_wishlist(request)
+        return Response({'status':403,'message':'You need to be authorised to perform this action.'})
+
 
 
 

@@ -90,4 +90,8 @@ class UserAccDetailsApi(APIView):
 
     def patch(self,request,*args,**kwargs):
         # update user details/ 2fa status
-        pass
+        if request.user.is_authenticated:
+            return DukanAuth().UpdateUserDetails(request)
+        return Response({'status':403,'message':'Please authenticate yourself to get details about you.'})
+        
+        
