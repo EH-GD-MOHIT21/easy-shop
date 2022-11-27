@@ -15,6 +15,9 @@ import "./Addproducts.css"
 import { Alert } from '@mui/material';
 import { set } from "react-hook-form";
 import { useRef } from "react";
+import { useEffect } from 'react';
+import axios from "axios";
+
 const useStyles = makeStyles(theme => ({
     accordian: {
         backgroundColor: "tran !important"
@@ -57,6 +60,21 @@ export default function AddDukaan() {
         setAdd_Dukkan(true)
     }
 
+    useEffect(function(){
+        const options = {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true 
+        };
+        
+        axios.get('http://127.0.0.1:8000/isauthenticated', options)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => console.log(error));
+    },[])
    
     return (
         <div className='Addprroducts'>

@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .repository import DukanCreationUtils,DukaanAdditionUtils
+from .repository import DukanCreationUtils,DukaanAdditionUtils,UserCartUtils
 
 # Create your views here.
 
@@ -52,8 +52,23 @@ class ProductAPI(APIView):
     def post(self,request,*args,**kwargs):
         return DukanCreationUtils().add_product(request)
 
+
+
 class ListDukaanCategoryAPI(APIView):
     def get(self,request,*args,**kwargs):
         slug = kwargs['slug']
         return DukanCreationUtils().list_dukaan_category(request,slug)
+
+
+
+class CartAPI(APIView):
+    def get(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return UserCartUtils().list_cart_items(request)
+        return Response({'status':403,'message':'Please authenticate yourself to use this function.'})
+
+    def post(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return UserCartUtils().modify_cart(request)
+        return Response({'status':403,'message':'Please Authenticate yourself to use this function.'})
         

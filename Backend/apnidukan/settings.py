@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-# from decouple import config
+from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -47,8 +47,7 @@ INSTALLED_APPS = [
     'drf_social_oauth2',
     'corsheaders',
     'django_celery_results',
-    'mainApp',
-    'paymentsApp',
+    'mainApp'
 ]
 
 MIDDLEWARE = [
@@ -67,8 +66,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", 
     "http://127.0.0.1:3000",   
 ]
-
-CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'apnidukan.urls'
 
@@ -164,8 +161,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Google configuration
-# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
 
 # Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
@@ -191,14 +188,15 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "no.reply.apni.dukaan@gmail.com"
-# EMAIL_HOST_PASSWORD = config("PASS_MAIL")
+EMAIL_HOST_PASSWORD = config("PASS_MAIL")
 EMAIL_USE_TLS = True
 
 VALID_CHARS = [str(i) for i in range(0,10)] + [chr(i) for i in range(65,91)] + [chr(i) for i in range(97,123)]
 
 # RAZOR PAY DUMMY CREDENTIALS
+RAZOR_KEY_ID = "rzp_test_48HADa6gNmd6ks"
+RAZOR_KEY_SECRET = "cs3QfR8Wb6WQ7ZidL5Fr5P29"
+
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-RAZOR_KEY_ID = "rzp_test_OG0pcamm8rxVEE"
-RAZOR_KEY_SECRET = "kbzFfb8whm9nvr17GTi6awKS"
