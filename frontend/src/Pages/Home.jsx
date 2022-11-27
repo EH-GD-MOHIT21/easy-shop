@@ -87,7 +87,7 @@ export default function Home() {
               options={state_total_sales.options}
               series={state_total_sales.series}
               type="bar"
-              width={300}
+              width={350}
             />
       </div>
       <div className='store_views'>
@@ -97,7 +97,7 @@ export default function Home() {
               options={store_views.options}
               series={store_views.series}
               type="bar"
-              width={300}
+              width={350}
             />
       </div>
     </div>
