@@ -24,6 +24,19 @@ class DukaanOwnerSerializer(ModelSerializer):
         fields = ["owner","perms","id","slug","creator","created_at","intro","description","logo","name","category","seller_address"]
     
 class ProductSerializer(ModelSerializer):
+    name = serializers.ReadOnlyField(source='product.name')
+    description = serializers.ReadOnlyField(source='product.description')
+    price = serializers.ReadOnlyField(source='product.price')
+    discounted_price = serializers.ReadOnlyField(source='product.discounted_price')
+    category = serializers.ReadOnlyField(source='product.category')
+    additional_info = serializers.ReadOnlyField(source='product.additional_info')
+    dukaan = serializers.ReadOnlyField(source='product.dukaan.slug')
+    intro = serializers.ReadOnlyField(source='product.dukaan.intro')
+    creator = serializers.ReadOnlyField(source='product.dukaan.creator.username')
+    logo = serializers.ImageField(source='product.dukaan.logo',read_only=True)
+    seller_address = serializers.ReadOnlyField(source='product.dukaan.seller_address')
+    shop_name = serializers.ReadOnlyField(source='product.dukaan.name')
+    
     class Meta:
         model = Product
-        fields = "__all__"
+        fields = ["name","description","price","discounted_price","category","additional_info","dukaan","intro","creator","logo","seller_address","shop_name"]

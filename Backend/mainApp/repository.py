@@ -79,10 +79,10 @@ class DukaanAdditionUtils:
 
     def list_wishlist(self,request):
         model = WishList.objects.filter(user=request.user).only('product')
-        print(model)
-        return Response({'status':200,'message':'success'})
+        serializer = ProductSerializer(model,many=True)
+        return Response({'status':200,'message':'success','data':serializer.data})
 
-        
+
     def list_dukaan_category(self,request,slug):
         dukaan = Dukaan.objects.get(slug=slug)
         products = Product.objects.filter(dukaan=dukaan).distinct('category')
