@@ -12,6 +12,7 @@ import DesignAccount from './DesignAccount';
 import MyOrders from '../MyOrders';
 import WishList from './WishList';
 import AddCart from './AddCart';
+import MyAddresses from '../MyAddresses';
 export default function DesignOne() {
   return (
     <div className='DesignOne'>
@@ -24,12 +25,14 @@ export default function DesignOne() {
             <Route path='Wishlist' element ={<WishList />} />
             <Route path='AddCart' element ={<AddCart />} />
             <Route path='AllProducts' element ={<DesignOneProduct />} />
+            <Route path='AllProducts/productPage' element ={ <ProductDiplay />} />
+            <Route path='AllProducts/productPage/MyAddresses' element ={ <div className='address'><MyAddresses /></div>} />
         
       </Routes>
-      {/* <DesignOneProduct /> */}
+
       
       
-      {/* <ProductDiplay /> */}
+     
     </div>
   )
 }

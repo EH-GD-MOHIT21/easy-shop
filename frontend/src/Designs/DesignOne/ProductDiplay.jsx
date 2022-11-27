@@ -1,8 +1,9 @@
 import React from 'react'
 import "./ProductDiplay.css"
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-
+import { useNavigate } from 'react-router-dom';
 export default function ProductDiplay() {
+    const navigate = useNavigate();
     return (
         <div className='ProductDiplay'>
             <div className='Small_img'>
@@ -29,7 +30,7 @@ export default function ProductDiplay() {
                     <FavoriteBorderIcon />
                     <p>Wishlist</p>
                     </p>
-                    <p className='add_bags'>Add to bag</p>
+                    <p className='add_bags' onClick={()=> navigate("MyAddresses")}>Add to bag</p>
                 </div>
             </div>
         </div>
