@@ -15,10 +15,27 @@ from mainApp.repository import DukanCreationUtils
 class DukanAuthUtils:
 
     def IsUsernameAvailable(self, request):
-        return User.objects.get(username=request.data["username"])
+        username = request.data["username"]
+        if User.objects.filter(username=username).exists():
+            return False
+        username_validation = True
+        username_cntr = 0
+        for letter in username:
+            username_cntr += 1
+            if letter.isalpha() or letter.isdigit() or letter == '_':
+                continue
+            else:
+                username_validation = False
+                break
+        if not username_validation or username_cntr > 15:
+            return False
+        return True
 
     def IsEmailAvailable(self, request):
-        return User.objects.get(email=request.data["email"])
+        regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+        if not re.fullmatch(regex,request.data["email"]) or User.objects.filter(email=request.data["email"]).exists():
+            return False
+        return True
 
     def GenerateSlug(self, length):
         valid_chars = settings.VALID_CHARS
@@ -244,3 +261,16 @@ class DukanAuth:
         serializer = UserSerializer(request.user)
         user_data = DukanCreationUtils().list_dukaan(request).data
         return Response({'status':'success','basic_info':serializer.data,'owner_shop':user_data['owner_shop'],'other_owner_shop':user_data['other_owner_shop']})
+    
+    def UpdateUserDetails(self,request):
+        data = request.data.get('username',0)
+        data1 = request.data.get('email',0)
+        data2 = request.data.get('password',0)
+        if(data or data1 or data2):
+            return Response({'status':200,'message': 'One of fields is not updatable'})
+        serializer = UserSerializer(request.user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return self.UserDetails(request)
+        else:
+            return Response({'status':404,'message': 'Invalid data'})

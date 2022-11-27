@@ -27,20 +27,24 @@ class ValidateUserRegisterApi(APIView):
 
 class CheckForUsernameApi(APIView):
     def post(self, request, *args, **kwargs):
-        try:
-            DukanAuthUtils().IsUsernameAvailable(request)
-            return Response({'status': 200, 'message': 'username avaialble.'})
-        except:
-            return Response({'status': 404, 'message': 'username not available'})
+        if DukanAuthUtils().IsUsernameAvailable(request):
+            return Response({'status': 200, 'message': 'username avaialble'})
+        else:
+            return Response({'status': 404, 'message': 'username not available or invalid'})
 
 
 class CheckForEmailApi(APIView):
     def post(self, request, *args, **kwargs):
-        try:
-            DukanAuthUtils().IsEmailAvailable(request)
-            return Response({'status': 200, 'message': 'email avaialble.'})
-        except:
-            return Response({'status': 404, 'message': 'email not available'})
+        if DukanAuthUtils().IsEmailAvailable(request):
+            return Response({'status': 200, 'message': 'email avaialble'})
+        else:
+            return Response({'status': 404, 'message': 'email not available or invalid'})
+
+
+
+class IsAuthenticatedApi(APIView):
+    def get(self,request,*args,**kwargs):
+        return Response({'status':200,'message':request.user.is_authenticated})
 
 
 class LoginViewApi(APIView):
@@ -90,4 +94,8 @@ class UserAccDetailsApi(APIView):
 
     def patch(self,request,*args,**kwargs):
         # update user details/ 2fa status
-        pass
+        if request.user.is_authenticated:
+            return DukanAuth().UpdateUserDetails(request)
+        return Response({'status':403,'message':'Please authenticate yourself to get details about you.'})
+        
+        

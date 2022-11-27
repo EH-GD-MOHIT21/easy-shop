@@ -45,6 +45,18 @@ class Product(models.Model):
 
 
 
+class sub_cart(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    sub_carts = models.ManyToManyField(sub_cart)
+
+
+
 
 class DukaanOwner(models.Model):
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -57,6 +69,12 @@ class DukaanOwner(models.Model):
             READ SHOP
         READ SHOP is default non removeable permission
     '''
+
+
+
+class WishList(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
 
 
 '''
@@ -84,4 +102,6 @@ def pre_save_receiver(sender, instance, *args, **kwargs):
         instance.slug = unique_slug_generator(instance)
 
 pre_save.connect(pre_save_receiver, sender = Dukaan) 
+
+
     

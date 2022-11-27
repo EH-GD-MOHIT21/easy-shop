@@ -1,6 +1,6 @@
-from .models import Dukaan,DukaanOwner,Product,Image
+from .models import Dukaan,DukaanOwner,Product,Image,WishList
 from rest_framework.response import Response
-from .serializers import DukaanSerializer,DukaanOwnerSerializer
+from .serializers import DukaanSerializer,DukaanOwnerSerializer,ProductSerializer
 
 class DukanCreationUtils:
     def create_dukaan(self,request):
@@ -61,3 +61,35 @@ class DukanCreationUtils:
     # list the products of a shop
     def list_product(self,request,dukaan):
         pass
+
+
+
+class DukaanAdditionUtils:
+
+    def add_to_wishlist(self,request):
+        user = request.user
+        product_id = request.data['product_id']
+        product = Product.objects.get(id=int(product_id))
+        try:
+            model = WishList.objects.get(user=user,product=product)
+        except:
+            WishList.objects.create(user=user,product=product).save()
+        return Response({'status':200,'message':'successfully added product to wishlist.'})
+
+
+    def list_wishlist(self,request):
+        model = WishList.objects.filter(user=request.user).only('product')
+        serializer = ProductSerializer(model,many=True)
+        return Response({'status':200,'message':'success','data':serializer.data})
+
+
+    def list_dukaan_category(self,request,slug):
+        dukaan = Dukaan.objects.get(slug=slug)
+        products = Product.objects.filter(dukaan=dukaan).distinct('category')
+        serializer = ProductSerializer(products,many=True)
+        return Response({'status':200,'message':'success','list_dukaan':serializer.data})
+        
+
+        
+
+
