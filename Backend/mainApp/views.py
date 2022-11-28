@@ -71,4 +71,9 @@ class CartAPI(APIView):
         if request.user.is_authenticated:
             return UserCartUtils().modify_cart(request)
         return Response({'status':403,'message':'Please Authenticate yourself to use this function.'})
-        
+
+class CartOrders(APIView):
+    def get(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return UserCartUtils().Cartorders(request)
+        return Response({'status':403,'message':'Please authenticate yourself to use this function.'})

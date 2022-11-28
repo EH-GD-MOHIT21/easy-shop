@@ -10,9 +10,10 @@ from rest_framework.decorators import api_view
 from mainApp.models import Cart
 from .models import Order
 
-
 @api_view(['POST'])
 def createOrder(request):
+    if not request.user.is_authenticated:
+        return Response({'status':403,'message':'please authenticate yourself'})
     global client
 
     client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
@@ -22,6 +23,7 @@ def createOrder(request):
     amount = 0
     for index,item in enumerate(subcarts):
         amount += item.product.discounted_price * item.quantity
+    amount*=100
     data = {"amount" : amount, "currency" : "INR"}
     payment = client.order.create(data=data)
     model = Order()
@@ -29,6 +31,7 @@ def createOrder(request):
     model.user = request.user
     model.amount = payment['amount']
     model.order_status = "PENDING"
+    model.save()
     for subcart in subcarts:
         model.order_items.add(subcart)
     model.save()
@@ -37,6 +40,8 @@ def createOrder(request):
 
 @api_view(['POST'])
 def verifySignature(request):
+    if not request.user.is_authenticated:
+        return Response({'status':403,'message':'please authenticate yourself'})
     res = request.data
 
     params_dict = {
@@ -52,9 +57,9 @@ def verifySignature(request):
         # empty cart 
         # order status success
         cart = Cart.objects.get(user=request.user)
-        cart.sub_carts = None
+        cart.sub_carts.clear()
         cart.save()
-        order = Order.objects.get(order_id=res['razorpay_orderId'])
+        order = Order.objects.get(order_id=params_dict['razorpay_order_id'])
         order.order_status = 'SUCCESS'
         order.save()
         return Response({'status':'Payment Successful'})

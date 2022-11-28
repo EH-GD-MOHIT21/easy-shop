@@ -1,6 +1,8 @@
 from .models import Dukaan,DukaanOwner,Product,Image,WishList,Cart,SubCart
 from rest_framework.response import Response
 from .serializers import DukaanSerializer,DukaanOwnerSerializer,ProductSerializer,ProductMainSerializer,SubCartsSerializer
+from paymentsApp.models import Order
+from paymentsApp.serializers import OrderSerializer
 
 class DukanCreationUtils:
     def create_dukaan(self,request):
@@ -125,3 +127,10 @@ class UserCartUtils:
         for index,item in enumerate(sub_cart):
             final_price += item.product.discounted_price * item.quantity
         return Response({'status':200,'message':'success','data':data,'final_price':final_price})
+    
+    def Cartorders(self,request):
+        orders = Order.objects.filter(user=request.user)
+        data = OrderSerializer(orders,many=True).data
+        print(data)
+        return Response({'status':200,'message':'success','data':data})
+
