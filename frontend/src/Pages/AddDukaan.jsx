@@ -37,7 +37,7 @@ export default function AddDukaan() {
     const [auth, setAuth] = useState(false);
     const [Add_Dukkan, setAdd_Dukkan] = useState(true)
     const imagevalueChange = (e) => {
-
+        console.log(e)
         const image = e.target.files[0];
         if (image === "" || image === undefined) {
             alert(`Not an a image , the file is ${typeof image}`);
@@ -46,7 +46,7 @@ export default function AddDukaan() {
         setshareImage(image);
     }
 
-    const getCookie =(name) =>{
+    function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie !== '') {
             var cookies = document.cookie.split(';');
@@ -61,12 +61,13 @@ export default function AddDukaan() {
         return cookieValue;
     }
     
-      const csrftoken = getCookie('X-CSRFToken');
-
+    const csrftoken = getCookie('X-CSRFToken');
+    
 
     const SubmitAddDukaan = (e) => {
         e.preventDefault();
-        const data = { DukaanName, DukaanCategory, DukaanDescription, tagLine, DukaanAddress, shareImage }
+        const data = { name:DukaanName, category:DukaanCategory, description:DukaanDescription, intro:tagLine, seller_address:DukaanAddress, logo:URL.createObjectURL(shareImage) }
+      
         if(auth.data.message){
             fetch('http://127.0.0.1:8000/createorgetdukaan', {
                 credentials: 'include',
