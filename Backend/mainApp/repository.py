@@ -1,6 +1,6 @@
-from .models import Dukaan,DukaanOwner,Product,Image,WishList
+from .models import Dukaan,DukaanOwner,Product,Image,WishList,Cart,SubCart
 from rest_framework.response import Response
-from .serializers import DukaanSerializer,DukaanOwnerSerializer,ProductSerializer,ProductMainSerializer
+from .serializers import DukaanSerializer,DukaanOwnerSerializer,ProductSerializer,ProductMainSerializer,SubCartsSerializer
 
 class DukanCreationUtils:
     def create_dukaan(self,request):
@@ -103,4 +103,12 @@ class UserCartUtils:
         pass
 
     def list_cart_items(self,request):
-        pass
+        user = request.user
+        sub_cart = Cart.objects.get(user=user).sub_carts
+        sub_cart = sub_cart.all()
+        final_price = 0
+        data = SubCartsSerializer(sub_cart,many=True).data
+        print(data)
+        for index,item in enumerate(sub_cart):
+            final_price += item.product.discounted_price * item.quantity
+        return Response({'status':200,'message':'success','data':data,'final_price':final_price})

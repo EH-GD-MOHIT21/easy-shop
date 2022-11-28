@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Dukaan,DukaanOwner,Product,Image
+from .models import Dukaan,DukaanOwner,Product,Image,SubCart
 from rest_framework import serializers
 
 class DukaanSerializer(ModelSerializer):
@@ -65,3 +65,11 @@ class ProductMainSerializer(ModelSerializer):
     class Meta:
         model = Product
         fields = ["name","description","price","discounted_price","category","additional_info","images","dukaan","intro","creator","logo","seller_address","shop_name"]
+        
+
+class SubCartsSerializer(ModelSerializer):
+    product = ProductMainSerializer(read_only=True)
+
+    class Meta:
+        model = SubCart
+        fields = ["product","quantity"]
