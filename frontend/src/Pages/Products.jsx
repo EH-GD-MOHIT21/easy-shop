@@ -1,5 +1,6 @@
 
 import * as React from 'react';
+import { useState,useEffect } from 'react';
 import "./Product.css"
 import SearchIcon from '@mui/icons-material/Search';
 import Fab from '@mui/material/Fab';
@@ -10,7 +11,8 @@ import { useNavigate } from 'react-router-dom';
 const ProductList = ['Product', 'Price', 'Inventory', 'Status', 'Action']
 export default function ProductPage() {
   const nevigate = useNavigate();
-  const [selctDukaan,setSelectDukaan] = React.useState("")
+  const [selctDukaan,setSelectDukaan] = React.useState("");
+  const [dukaanlist,setdukaanlist] = useState([]);
   const ClickToSearch = () => {
     const search = document.querySelector(".search");
     const input = document.querySelector(".input");
@@ -20,6 +22,19 @@ export default function ProductPage() {
 const selectDukaan = (e)=>{
   setSelectDukaan(e.target.value)
 }
+
+    function getExistingDukaan() {
+        fetch('http://127.0.0.1:8000/createorgetdukaan')
+            .then((response) => response.json())
+            .then((data) => {
+                setdukaanlist(data.owner_shop)
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+    useEffect(getExistingDukaan, []);
+
 console.log(selctDukaan)
   return (
     <div className='product_page'>
@@ -33,9 +48,13 @@ console.log(selctDukaan)
         <div className='Select_dukaan'>
           <select name="dukaan" required className='selct_dukaan' onChange={selectDukaan}>
             <option value="" disabled selected hidden className='opt_dukaan'>Select a Dukaan</option>
-            <option value="coffee" className='opt_dukaan'>Coffee</option>
-            <option value="tea" className='opt_dukaan'>Tea</option>
-            <option value="milk" className='opt_dukaan'>Milk</option>
+            {
+              dukaanlist.map((data) => {
+                return (
+                  <option value={data.name} className='opt_dukaan'>{data.name}</option>
+                )
+              })
+            }
           </select>
         </div>
         <Fab variant="extended" color="secondary" onClick={() => nevigate("/UserHome/Products/Addproducts")} disabled = {!selctDukaan ? true : false} >
