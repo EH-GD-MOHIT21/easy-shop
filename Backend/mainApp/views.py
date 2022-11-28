@@ -8,8 +8,6 @@ from .repository import DukanCreationUtils,DukaanAdditionUtils,UserCartUtils
 class CreateOrGetDukaanAPI(APIView):
 
     def get(self,request,*args,**kwargs):
-        print(request.user)
-        print(request.user.is_authenticated)
         try:
             if request.user.is_authenticated:
                 return DukanCreationUtils().list_dukaan(request)
@@ -46,7 +44,9 @@ class WishlistAPI(APIView):
 class ProductAPI(APIView):
     # list product for shop
     def get(self,request,*args,**kwargs):
-        pass
+        dukaan = request.GET['dukaan']
+        category = request.GET['category']
+        return DukanCreationUtils().list_product(request,dukaan,category)
 
     # create product for shop
     def post(self,request,*args,**kwargs):
@@ -56,8 +56,8 @@ class ProductAPI(APIView):
 
 class ListDukaanCategoryAPI(APIView):
     def get(self,request,*args,**kwargs):
-        slug = kwargs['slug']
-        return DukanCreationUtils().list_dukaan_category(request,slug)
+        slug = request.GET['slug']
+        return DukaanAdditionUtils().list_dukaan_category(request,slug)
 
 
 
