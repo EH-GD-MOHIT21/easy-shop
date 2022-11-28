@@ -100,7 +100,20 @@ class DukaanAdditionUtils:
         
 class UserCartUtils:
     def modify_cart(self,request):
-        pass
+        # data = [{'productid':1,"quantity":2},{'productid':2,"quantity":3}]
+        data = request.data
+        cart,_ = Cart.objects.get_or_create(user=request.user)
+        subcarts = cart.sub_carts.all()
+        for subcart in subcarts:
+            subcart.delete()
+        for cart_item in data:
+            product = Product.objects.get(id=int(cart_item['productid']))
+            model = SubCart()
+            model.product,model.quantity = product,int(cart_item['quantity'])
+            model.save()
+            cart.sub_carts.add(model)
+        cart.save()
+        return self.list_cart_items(request)
 
     def list_cart_items(self,request):
         user = request.user
