@@ -35,6 +35,7 @@ export default function AddDukaan() {
     const [tagLine, setTagLine] = useState("");
     const [DukaanAddress, setDukaanAddress] = useState("");
     const [auth, setAuth] = useState(false);
+    const [ExistingDukaan, setExistingDukaan] = useState([]);
     const [Add_Dukkan, setAdd_Dukkan] = useState(true)
     const imagevalueChange = (e) => {
         console.log(e)
@@ -60,38 +61,51 @@ export default function AddDukaan() {
         }
         return cookieValue;
     }
-    
+
     const csrftoken = getCookie('X-CSRFToken');
-    
+
 
     const SubmitAddDukaan = (e) => {
         e.preventDefault();
-        const data = { name:DukaanName, category:DukaanCategory, description:DukaanDescription, intro:tagLine, seller_address:DukaanAddress, logo:URL.createObjectURL(shareImage) }
-      
-        if(auth.data.message){
+        const data = { name: DukaanName, category: DukaanCategory, description: DukaanDescription, intro: tagLine, seller_address: DukaanAddress, logo: shareImage };
+
+        const uploadData = new FormData();
+        uploadData.append("name", DukaanName);
+        uploadData.append("category", DukaanCategory);
+        uploadData.append("description", DukaanDescription);
+        uploadData.append("intro", tagLine);
+        uploadData.append("seller_address", DukaanAddress);
+        uploadData.append("logo", shareImage);
+
+
+        if (auth.data.message) {
             fetch('http://127.0.0.1:8000/createorgetdukaan', {
-                credentials: 'include',
+                // credentials: 'include',
                 method: 'POST',
-                mode: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken
-            },
-            withCredentials: true,
-            body: JSON.stringify(data),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Success:', data);
+                // mode: 'same-origin',
+
+                headers: {
+                    // "Content-Type": "application/json",
+                    'X-CSRFToken': csrftoken,
+                    // 'Content-Type':'multipart/form-data',
+                },
+                withCredentials: true,
+                body: uploadData,
             })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Success:', data);
+                    getExistingDukaan();
+                    setAdd_Dukkan(true)
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
         }
-        else{
+        else {
             nevigate("/")
         }
-        
+
 
     }
     const handleAddDukaan = () => {
@@ -100,33 +114,42 @@ export default function AddDukaan() {
     const handleremoveDukaan = () => {
         setAdd_Dukkan(true)
     }
-console.log(auth);
-    useEffect(() => isAuthenticat(setAuth), [])
+    console.log(auth);
+    useEffect(() => isAuthenticat(setAuth), []);
+
+    function getExistingDukaan() {
+
+
+        fetch('http://127.0.0.1:8000/createorgetdukaan')
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                setExistingDukaan(data.owner_shop)
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+    useEffect(getExistingDukaan, []);
+
+    console.log(ExistingDukaan)
     return (
         <div className='Addprroducts'>
             <div className="Show_Dukaan">
                 <p className="Ext_dukaan">Existing Dukaan</p>
                 <div className='Existing_Dukaans'>
-                    <div className='Existing_Dukaan'>
-                        <img className="Existing_Dukaan_logo" src='https://avatars.githubusercontent.com/u/78958441?v=4' />
-                    </div>
-                    <div className='Existing_Dukaan' >
-                        <img className="Existing_Dukaan_logo" src='https://avatars.githubusercontent.com/u/78958441?v=4' />
-                    </div>
-                    <div className='Existing_Dukaan'>
-                        <img className="Existing_Dukaan_logo" src='https://avatars.githubusercontent.com/u/78958441?v=4' />
-                    </div>
-                    <div className='Existing_Dukaan'>
-                        <img className="Existing_Dukaan_logo" src='https://avatars.githubusercontent.com/u/78958441?v=4' />
-                    </div>  <div className='Existing_Dukaan'>
-                        <img className="Existing_Dukaan_logo" src='https://avatars.githubusercontent.com/u/78958441?v=4' />
-                    </div>  <div className='Existing_Dukaan'>
-                        <img className="Existing_Dukaan_logo" src='https://avatars.githubusercontent.com/u/78958441?v=4' />
-                    </div>  <div className='Existing_Dukaan'>
-                        <img className="Existing_Dukaan_logo" src='https://avatars.githubusercontent.com/u/78958441?v=4' />
-                    </div>  <div className='Existing_Dukaan'>
-                        <img className="Existing_Dukaan_logo" src='https://avatars.githubusercontent.com/u/78958441?v=4' />
-                    </div>
+                    {
+                        ExistingDukaan.map((data) => {
+                            return (
+                                <div className='Existing_Dukaan'>
+                                    <img className="Existing_Dukaan_logo" src={data?.logo} />
+                                    <div className='Exiting_dukan_name'>{data.name}</div>
+                                </div>
+                            )
+                        })
+                    }
+
+
 
                 </div>
             </div>
