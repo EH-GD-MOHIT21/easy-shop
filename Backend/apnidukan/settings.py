@@ -214,3 +214,6 @@ RAZOR_KEY_SECRET = "kbzFfb8whm9nvr17GTi6awKS"
 # SESSION_COOKIE_HTTPONLY = True
 
 # CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
+
+
+OTHER_STATICS = os.path.join(BASE_DIR,'../frontend/public/Images')

@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Dukaan,DukaanOwner,Product
+from .models import Dukaan,DukaanOwner,Product,Image
 from rest_framework import serializers
 
 class DukaanSerializer(ModelSerializer):
@@ -40,3 +40,28 @@ class ProductSerializer(ModelSerializer):
     class Meta:
         model = Product
         fields = ["name","description","price","discounted_price","category","additional_info","dukaan","intro","creator","logo","seller_address","shop_name"]
+
+
+class ImageSerializer(ModelSerializer):
+    class Meta:
+        model = Image
+        fields = "__all__"
+
+
+class ProductMainSerializer(ModelSerializer):
+    name = serializers.ReadOnlyField()
+    description = serializers.ReadOnlyField()
+    price = serializers.ReadOnlyField()
+    discounted_price = serializers.ReadOnlyField()
+    category = serializers.ReadOnlyField()
+    additional_info = serializers.ReadOnlyField()
+    dukaan = serializers.ReadOnlyField(source='dukaan.slug')
+    intro = serializers.ReadOnlyField(source='dukaan.intro')
+    creator = serializers.ReadOnlyField(source='dukaan.creator.username')
+    logo = serializers.ImageField(source='dukaan.logo',read_only=True)
+    seller_address = serializers.ReadOnlyField(source='dukaan.seller_address')
+    shop_name = serializers.ReadOnlyField(source='dukaan.name')
+    images = ImageSerializer(read_only=True,many=True)
+    class Meta:
+        model = Product
+        fields = ["name","description","price","discounted_price","category","additional_info","images","dukaan","intro","creator","logo","seller_address","shop_name"]
