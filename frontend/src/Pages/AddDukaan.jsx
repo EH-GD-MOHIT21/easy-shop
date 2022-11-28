@@ -5,18 +5,16 @@ import React from 'react'
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
-import ProductDescription from '../Components/ProductDescription';
+import isAuthenticat from '../HelperFunction/isAuthenticat;';
 import CameraEnhanceIcon from '@mui/icons-material/CameraEnhance';
 import { makeStyles } from '@mui/styles';
 import { useState } from "react";
 import Button from '@mui/material/Button';
 import RemoveIcon from '@mui/icons-material/Remove';
-import "./Addproducts.css"
-import { Alert } from '@mui/material';
-import { set } from "react-hook-form";
+import "./Addproducts.css";
 import { useRef } from "react";
 import { useEffect } from 'react';
-import axios from "axios";
+
 
 const useStyles = makeStyles(theme => ({
     accordian: {
@@ -35,7 +33,8 @@ export default function AddDukaan() {
     const nevigate = useNavigate();
     const [shareImage, setshareImage] = useState("");
     const [tagLine, setTagLine] = useState("");
-    const [DukaanAddress,setDukaanAddress] = useState("");
+    const [DukaanAddress, setDukaanAddress] = useState("");
+    const [auth, setAuth] = useState(false);
     const [Add_Dukkan, setAdd_Dukkan] = useState(true)
     const imagevalueChange = (e) => {
 
@@ -47,11 +46,52 @@ export default function AddDukaan() {
         setshareImage(image);
     }
 
+    const getCookie =(name) =>{
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+      const csrftoken = getCookie('X-CSRFToken');
+
 
     const SubmitAddDukaan = (e) => {
         e.preventDefault();
-        const data = { DukaanName, DukaanCategory, DukaanDescription, tagLine, DukaanAddress,shareImage }
-        console.log(data)
+        const data = { DukaanName, DukaanCategory, DukaanDescription, tagLine, DukaanAddress, shareImage }
+        if(auth.data.message){
+            fetch('http://127.0.0.1:8000/createorgetdukaan', {
+                credentials: 'include',
+                method: 'POST',
+                mode: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            withCredentials: true,
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+        else{
+            nevigate("/")
+        }
+        
+
     }
     const handleAddDukaan = () => {
         setAdd_Dukkan(false)
@@ -59,23 +99,8 @@ export default function AddDukaan() {
     const handleremoveDukaan = () => {
         setAdd_Dukkan(true)
     }
-
-    useEffect(function(){
-        const options = {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            withCredentials: true 
-        };
-        
-        axios.get('http://127.0.0.1:8000/isauthenticated', options)
-        .then(response => {
-            console.log(response);
-        })
-        .catch(error => console.log(error));
-    },[])
-   
+console.log(auth);
+    useEffect(() => isAuthenticat(setAuth), [])
     return (
         <div className='Addprroducts'>
             <div className="Show_Dukaan">
@@ -194,7 +219,7 @@ export default function AddDukaan() {
 
 
                                 {
-                                    shareImage  && (
+                                    shareImage && (
                                         <div className='productphotos'>
                                             <div className='product_photo'>
                                                 <img src={shareImage && URL.createObjectURL(shareImage)} className="product_images" />

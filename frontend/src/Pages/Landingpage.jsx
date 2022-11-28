@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import "./Landingpage.css"
 import Button from '@mui/material/Button';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
+
 function Landingpage() {
     const nevigate = useNavigate();
+    useLayoutEffect(function(){
+        const options = {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true 
+        };
+        
+        axios.get('http://127.0.0.1:8000/isauthenticated', options)
+        .then(response => {
+            if(response.data['message']==true){
+                window.location.replace('/UserHome')
+            }
+        })
+        .catch(error => console.log(error));
+    },[])
     return (
         <div className='Landingpage'>
             <div className='Landing_page'>

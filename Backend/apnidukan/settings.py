@@ -74,7 +74,7 @@ ROOT_URLCONF = 'apnidukan.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'../frontend/build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,6 +139,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'../frontend/build/static')
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -186,6 +190,8 @@ CELERY_TASK_SERIALIZER = 'json'
 CSRF_COOKIE_NAME = "X-CSRFToken"
 
 # EMAIL CONFIG
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
@@ -206,3 +212,8 @@ CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
+
+CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
+
+
+CSRF_COOKIE_NAME = "X-CSRFToken"
