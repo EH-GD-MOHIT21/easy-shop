@@ -4,6 +4,8 @@ from .serializers import DukaanSerializer,DukaanOwnerSerializer,ProductSerialize
 
 class DukanCreationUtils:
     def create_dukaan(self,request):
+        print(request.data)
+        print(request.FILES)
         user = request.user
         intro = request.data['intro']
         description = request.data['description']
