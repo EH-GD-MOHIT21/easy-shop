@@ -13,8 +13,7 @@ class Order(models.Model):
     order_at = models.DateTimeField()
     order_status = models.CharField(max_length=10)
     order_items = models.ManyToManyField(SubCart)
-
-
+                                                
     def save(self,*args,**kwargs):
         if not isinstance(self.order_at,datetime):
             self.order_at = timezone.now()

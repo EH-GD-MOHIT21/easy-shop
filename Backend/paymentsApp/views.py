@@ -72,3 +72,10 @@ class CartOrders(APIView):
         if request.user.is_authenticated:
             return PaymentUtils().Cartorders(request)
         return Response({'status':403,'message':'Please authenticate yourself to use this function.'})
+
+
+class DukaanOrders(APIView):
+    def get(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return PaymentUtils().dukaanorders(request)
+        return Response({'status':403,'message':'Please authenticate yourself to use this function.'})
