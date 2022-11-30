@@ -1,6 +1,24 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react'
 
+function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+
+const csrftoken = getCookie('X-CSRFToken');
+
+console.log(csrftoken);
 function loadScript(src) {
 	return new Promise((resolve) => {
 		const script = document.createElement('script')
@@ -43,17 +61,20 @@ function RazorpayApp() {
     
     const orderData = await axios.post('http://127.0.0.1:8000/createOrder/', {
       amount: selectedItemAmount
-    })
+    },{
+      headers: {
+        'X-CSRFToken': csrftoken
+    }})
 
     const { amount, currency, order_id } = orderData.data
-
+    
     
 		const options = {
             key: "rzp_test_OG0pcamm8rxVEE", // Enter the Key ID generated from the Dashboard
-            amount: amount.toString(),
+            amount: '101',
             currency: currency,
-            name: "Test Company",
-            description: "Test Transaction",
+            name: "Apni Dukaan",
+            description: "Thanks for choosing apni dukaan",
             // image: logo,
             order_id: order_id,
             handler: async function (response) {
@@ -65,7 +86,10 @@ function RazorpayApp() {
                   razorpay_paymentId,
                   razorpay_orderId,
                   razorpay_signature
-                })
+                },{
+                  headers: {
+                    'X-CSRFToken': csrftoken
+                  }})
 
                 alert(res.data.status)
             },
@@ -80,7 +104,11 @@ function RazorpayApp() {
         };
 		const paymentObject = new window.Razorpay(options)
 		paymentObject.open()
-	}
+	
+  }
+
+  
+
   return (
     <div className="App">
     {

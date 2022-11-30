@@ -82,3 +82,9 @@ class DukaanOwnerPermissions(APIView):
             return Response({'status':403,'message':'you need to be authorised to perform this action.'})
         except Exception as e:
             return Response({'status':500,'message':str(e)})
+
+class CartOrders(APIView):
+    def get(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return UserCartUtils().Cartorders(request)
+        return Response({'status':403,'message':'Please authenticate yourself to use this function.'})

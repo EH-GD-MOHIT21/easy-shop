@@ -1,7 +1,9 @@
 import React from 'react'
-
+import RazorpayApp from '../RazorpayApi/RazorpayApp'
 export default function Payment() {
   return (
-    <div>Payment</div>
+    <div>
+           <RazorpayApp /> 
+    </div>
   )
 }
