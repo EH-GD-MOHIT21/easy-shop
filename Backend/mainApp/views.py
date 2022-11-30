@@ -25,6 +25,17 @@ class CreateOrGetDukaanAPI(APIView):
 
 
 
+class DeleteDukaanAPI(APIView):
+    def post(self,request,*args,**kwargs):
+        try:
+            if request.user.is_authenticated:
+                return DukanCreationUtils().delete_dukaan(request)
+            return Response({'status':403,'message':'Please Authenticate Yourself to perform this action.'})
+        except Exception as e:
+            return Response({'status':500,'message':str(e)})
+
+
+
 class WishlistAPI(APIView):
 
     def get(self,request,*args,**kwargs):
@@ -54,7 +65,12 @@ class ProductAPI(APIView):
 
     # create product for shop
     def post(self,request,*args,**kwargs):
-        return DukanCreationUtils().add_product(request)
+        try:
+            if request.user.is_authenticated:
+                return DukanCreationUtils().add_product(request)
+            return Response({'status':403,'message':'Please authenticate yourself to use this function.'})
+        except Exception as e:
+            return Response({'status':500,'message':str(e)})
 
 
 
