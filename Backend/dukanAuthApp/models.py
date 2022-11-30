@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
+from django.db.models.signals import post_save
 # Create your models here.
 
 
@@ -68,6 +69,7 @@ class User(AbstractUser):
     # permissions
     superuser = models.BooleanField(default=False)
     staff = models.BooleanField(default=False)
+    has_cart = models.BooleanField(default=False)
 
     # user manager
     objects = UserManager()
@@ -79,3 +81,12 @@ class User(AbstractUser):
     @property
     def is_superuser(self):
         return self.superuser
+
+
+def post_save_receiver(sender, instance, *args, **kwargs): 
+    if not instance.has_cart: 
+        instance.has_cart = True
+        from mainApp.models import Cart
+        Cart.objects.create(user=instance).save()
+
+post_save.connect(post_save_receiver, sender = User) 
