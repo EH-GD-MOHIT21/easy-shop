@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CreateOrGetDukaanAPI,ProductAPI,WishlistAPI,CartAPI,ListDukaanCategoryAPI,CartOrders,DukaanOwnerPermissions
+from .views import CreateOrGetDukaanAPI,ProductAPI,WishlistAPI,CartAPI,ListDukaanCategoryAPI,DukaanOwnerPermissions
 
 urlpatterns = [
     path('createorgetdukaan',CreateOrGetDukaanAPI.as_view()),
@@ -8,5 +8,4 @@ urlpatterns = [
     path('modifyorlistcart',CartAPI.as_view()),
     path('listdukaancategory',ListDukaanCategoryAPI.as_view()),
     path('managepermission',DukaanOwnerPermissions.as_view()),
-    path('cartorder',CartOrders.as_view())
 ]

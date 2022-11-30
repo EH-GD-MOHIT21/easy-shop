@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from mainApp.models import Cart
 from .models import Order
+from .repository import PaymentUtils
 
 @api_view(['POST'])
 def createOrder(request):
@@ -64,3 +65,10 @@ def verifySignature(request):
         order.save()
         return Response({'status':'Payment Successful'})
     return Response({'status':'Payment Failed'})
+
+
+class CartOrders(APIView):
+    def get(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return PaymentUtils().Cartorders(request)
+        return Response({'status':403,'message':'Please authenticate yourself to use this function.'})
