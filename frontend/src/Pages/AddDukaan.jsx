@@ -16,7 +16,7 @@ import { useRef } from "react";
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { DukaanSelect } from '../Redux/DukaanSlice';
-
+import AlertDialogSlide from './AddDukanDialog';
 const useStyles = makeStyles(theme => ({
     accordian: {
         backgroundColor: "tran !important"
@@ -146,6 +146,12 @@ export default function AddDukaan() {
                                 <div className='Existing_Dukaan'>
                                     <img className="Existing_Dukaan_logo" src={data?.logo} />
                                     <div className='Exiting_dukan_name'>{data.name}</div>
+                                    <div className='Exiting_dukan_name'>
+                                        <Button variant="contained" size="large" color="secondary">
+                                            View
+                                        </Button>
+                                       <AlertDialogSlide />
+                                    </div>
                                 </div>
                             )
                         })
@@ -154,6 +160,7 @@ export default function AddDukaan() {
 
 
                 </div>
+                
             </div>
 
             <div className="Add_product_sextion">

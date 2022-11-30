@@ -33,4 +33,7 @@
     padding: 7px;
     background-color: #494949;
     letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
