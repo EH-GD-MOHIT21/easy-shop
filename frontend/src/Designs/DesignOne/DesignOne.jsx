@@ -24,9 +24,9 @@ export default function DesignOne() {
             <Route path='Account/*' element={<DesignAccount />} />
             <Route path='Wishlist' element ={<WishList />} />
             <Route path='AddCart' element ={<AddCart />} />
-            <Route path='AllProducts' element ={<DesignOneProduct />} />
-            <Route path='AllProducts/productPage' element ={ <ProductDiplay />} />
-            <Route path='AllProducts/productPage/MyAddresses' element ={ <div className='address'><MyAddresses /></div>} />
+            <Route path='category=:category/AllProducts' element ={<DesignOneProduct />} />
+            <Route path='category=:category/AllProducts/productPage/prodid=:prodid' element ={ <ProductDiplay />} />
+            <Route path='category=:category/AllProducts/productPage/MyAddresses' element ={ <div className='address'><MyAddresses /></div>} />
         
       </Routes>
 

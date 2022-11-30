@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ListItmesComponents from '../Components/ListItmesComponents'
 import "./UserHome.css"
 import {
@@ -121,6 +121,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [dukaanName, setdukaanName] = useState("")
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -173,7 +174,7 @@ export default function MiniDrawer() {
             <Route path="/" element={<Home />} />
             <Route path="Home" element={<Home />} />
             <Route path="addDukaan" element={<AddDukaan />} />
-            <Route path="Products/*" element={<Productpage />} />
+            <Route path="Products/*" element={<Productpage dukaanName={dukaanName} setdukaanName={setdukaanName} />} />
             <Route path="Orders" element={<Orders />} />
             <Route path="Delivery" element={<Delivery />} />
             <Route path="Analytics" element={<Analytics />} />

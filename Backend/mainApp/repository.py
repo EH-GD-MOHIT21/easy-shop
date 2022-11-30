@@ -42,11 +42,12 @@ class DukanCreationUtils:
         # check dukaan with user permission -- pending
         desc = request.data['productDescription']
         category = request.data['productCategory']
-        price = request.data['producPrice']
+        price = request.data['productPrice']
         discountedPrice = request.data['discountedPrice']
-        imageList = request.data['imageList']
+        imageList = request.FILES.getlist('imageList')
         Addvarient = request.data['Addvarient']
         model = Product()
+        dukaan = Dukaan.objects.get(slug=dukaan)
         model.dukaan = dukaan
         model.name = name
         model.description = desc
@@ -54,22 +55,32 @@ class DukanCreationUtils:
         model.price = price
         model.discounted_price = discountedPrice
         model.additional_info = Addvarient
+        model.save()
         for image in imageList:
+            print(image)
             img = Image()
             img.url = image
             img.save()
             model.images.add(img)
-        model.save()
+            model.save()
         return Response({'status':200,'message':'success'})
 
     # list the products of a shop
     def list_product(self,request,dukaan,category):
         dukaan = Dukaan.objects.get(slug=dukaan)
-        prods = Product.objects.filter(dukaan=dukaan,category=category)
-        print(prods)
+        if category != 'cat_all':
+            prods = Product.objects.filter(dukaan=dukaan,category=category)
+        else:
+            prods = Product.objects.filter(dukaan=dukaan)
         serializer = ProductMainSerializer(prods,many=True)
+        return Response({'status':200,'message':'success','data':serializer.data})
+    
+    def product_detail(self,request,dukaan,prodid):
+        product = Product.objects.get(id=prodid)
+        serializer = ProductMainSerializer(product)
         print(serializer.data)
         return Response({'status':200,'message':'success','data':serializer.data})
+
 
 
 
@@ -87,16 +98,24 @@ class DukaanAdditionUtils:
 
 
     def list_wishlist(self,request):
-        model = WishList.objects.filter(user=request.user).only('product')
+        model = WishList.objects.filter(user=request.user)
         serializer = ProductSerializer(model,many=True)
         return Response({'status':200,'message':'success','data':serializer.data})
 
 
     def list_dukaan_category(self,request,slug):
-        dukaan = Dukaan.objects.get(slug=slug)
-        products = Product.objects.filter(dukaan=dukaan).distinct('category')
-        serializer = ProductSerializer(products,many=True)
-        return Response({'status':200,'message':'success','list_dukaan':serializer.data})
+        dukaan = str(Dukaan.objects.get(slug=slug).id)
+        products = Product.objects.raw(f'SELECT mainApp_product.id, mainApp_product.dukaan_id, mainApp_product.name, mainApp_product.description, mainApp_product.price, mainApp_product.discounted_price, mainApp_product.category, mainApp_product.additional_info FROM mainApp_product WHERE mainApp_product.dukaan_id = {dukaan} GROUP BY mainApp_product.category')
+        main_data = []
+        for product in products:
+            data = {}
+            data['category'] = str(product.category)
+            data['images'] = []
+            imgs = product.images.all()
+            for img in imgs:
+                data['images'].append(str(img.url))
+            main_data.append(data)
+        return Response({'status':200,'message':'success','category':main_data})
         
 
         
@@ -131,6 +150,5 @@ class UserCartUtils:
     def Cartorders(self,request):
         orders = Order.objects.filter(user=request.user)
         data = OrderSerializer(orders,many=True).data
-        print(data)
         return Response({'status':200,'message':'success','data':data})
 

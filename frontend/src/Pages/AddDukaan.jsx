@@ -14,7 +14,8 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import "./Addproducts.css";
 import { useRef } from "react";
 import { useEffect } from 'react';
-
+import { useSelector } from 'react-redux';
+import { DukaanSelect } from '../Redux/DukaanSlice';
 
 const useStyles = makeStyles(theme => ({
     accordian: {
@@ -27,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 export default function AddDukaan() {
     const editor = useRef(null);
     const classes = useStyles();
+    const changeDukaan = useSelector(DukaanSelect);
     const [DukaanName, setDukaanName] = useState("");
     const [DukaanCategory, setDukaanCategory] = useState("");
     const [DukaanDescription, setDukaanDescription] = useState("");
@@ -132,7 +134,7 @@ export default function AddDukaan() {
     }
     useEffect(getExistingDukaan, []);
 
-    console.log(ExistingDukaan)
+    console.log(changeDukaan)
     return (
         <div className='Addprroducts'>
             <div className="Show_Dukaan">

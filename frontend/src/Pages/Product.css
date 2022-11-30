@@ -1,90 +1,96 @@
-
-.Product_Header{
-    background-color: #424242;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 8px;
-    padding: 18px 12px;
+.Product_Header {
+  background-color: #424242;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  padding: 18px 12px;
 }
 
 .search {
-    background-color:#323232 ;
-    position: relative;
-    height: 50px;
-    border-radius: 12px;
-    
-  }
-  .search .input {
-    background-color:#323232 ;
-    border: 0;
-    font-size: 18px;
-    padding: 15px;
-    height: 50px;
-    width: 50px;
-    transition: width 0.3s ease;
-    border-radius: 12px;
-    color: white;
-  }
-  .btn {
-    background-color: #9c27b0;
-    border: 0;
-    cursor: pointer;
-    font-size: 24px;
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    height: 50px;
-    width: 50px;
-    transition: transform 0.3s ease;
-    border-radius: 12px;
-  
-  }
-  .btn:focus,
-  .input:focus {
-    outline: none;
-  }
-  .search.active .input {
-    width: 200px;
-  }
-  .search.active .btn {
-    transform: translateX(198px);
-  }
-  .Search_icon{
-    color: white;
-  }
+  background-color: #323232;
+  position: relative;
+  height: 50px;
+  border-radius: 12px;
 
-  .Product_content{
-    margin-top: 22px;
-    color: white;
-    background-color: #424242;
-
-    border-radius: 8px;
-    padding: 18px 12px;
-  }
-
-  .Product_content_Header{
-    display: grid;
-    grid-template-columns: 60% 10% 10% 10% 10%;
-    background-color: #212121;
-    padding: 18px;
-    border-radius: 12px;
-  }
-
-.empty_product{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-   
-}
-.Empty_product_Img{
-    object-fit: contain;
-    height: 400px;
-    width: 400px;
 }
 
-.selct_dukaan{
+.search .input {
+  background-color: #323232;
+  border: 0;
+  font-size: 18px;
+  padding: 15px;
+  height: 50px;
+  width: 50px;
+  transition: width 0.3s ease;
+  border-radius: 12px;
+  color: white;
+}
+
+.btn {
+  background-color: #9c27b0;
+  border: 0;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  height: 50px;
+  width: 50px;
+  transition: transform 0.3s ease;
+  border-radius: 12px;
+
+}
+
+.btn:focus,
+.input:focus {
+  outline: none;
+}
+
+.search.active .input {
+  width: 200px;
+}
+
+.search.active .btn {
+  transform: translateX(198px);
+}
+
+.Search_icon {
+  color: white;
+}
+
+.Product_content {
+  margin-top: 22px;
+  color: white;
+  background-color: #424242;
+  margin-bottom: 32px;
+  border-radius: 8px;
+  padding: 18px 12px;
+}
+
+.Product_content_Header {
+  display: grid;
+  grid-template-columns: 60% 10% 10% 10% 10%;
+  background-color: #212121;
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.empty_product {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+}
+
+.Empty_product_Img {
+  object-fit: contain;
+  height: 400px;
+  width: 400px;
+}
+
+.selct_dukaan {
   background-color: #9c27b0;
   padding: 16px;
   font-size: 1.2rem;
@@ -92,10 +98,33 @@
   outline: none;
 }
 
-.opt_dukaan{
+.opt_dukaan {
   background-color: #9c27b0;
   padding: 16px;
   font-size: 1.2rem;
   font-weight: 600;
 }
 
+.Dukaan_products {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  justify-content: space-between;
+}
+
+.dukaan_product {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  background-color: #424242;
+  padding: 16px;
+}
+
+.dukaan_peoducts_left {
+  background-color: #212121;
+}
+
+.prduct_img {
+  object-fit: contain;
+  height: 200px;
+  width: 100%;
+
+}
