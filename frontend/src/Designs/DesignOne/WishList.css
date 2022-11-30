@@ -1,0 +1,25 @@
+.WishList{
+    width: 70%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 25% 25% 25% ;
+    justify-content: space-between;
+    grid-gap: 20px;
+    padding: 22px;
+}
+
+.wishlist_product{
+    height: 300px;
+    margin-bottom: 18px;
+
+}
+.prdct_img{
+    width: 100%;
+}
+
+.prdct_title{
+    background-color: rgb(99, 99, 99);
+    padding: 12px;
+    font-size: 1.2rem;
+    font-weight: 550;
+}

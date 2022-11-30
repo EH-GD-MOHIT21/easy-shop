@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: 22
     }
 }))
-export default function Addprroducts() {
+export default function Addprroducts({ dukaanName, setdukaanName }) {
     const classes = useStyles();
     const [productName, setproductName] = useState("");
     const [productCategory, setproductCategory] = useState("");
@@ -62,32 +62,77 @@ export default function Addprroducts() {
         const newVarient = Addvarient.filter((data, id) => id != idx);
         setAddvarient(newVarient)
     }
-const submitProductDetails = (e)=>{
-   e.preventDefault();
-   const data = {productName,productCategory,producPrice,discountedPrice,Addvarient,imageList,productDescription}
-   console.log(data)
-}
-console.log(productDescription)
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('X-CSRFToken');
+    const submitProductDetails = (e) => {
+        e.preventDefault();
+        const uploadData = new FormData();
+        uploadData.append("productName", productName);
+        uploadData.append("dukaan", dukaanName.toLowerCase().split(" ").join("-"));
+        uploadData.append("productDescription", productDescription);
+        uploadData.append("productCategory", productCategory);
+        uploadData.append("productPrice", producPrice);
+        uploadData.append("discountedPrice", discountedPrice);
+        for(let x of imageList){
+            uploadData.append("imageList", x);
+        }
+        uploadData.append("Addvarient", Addvarient);
+
+
+        fetch('http://127.0.0.1:8000/createorgetproduct', {
+
+            method: 'POST',
+
+            headers: {
+                'X-CSRFToken': csrftoken,
+            },
+            withCredentials: true,
+            body: uploadData,
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data); 
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
+    console.log(imageList)
     return (
         <div className='Addprroducts'>
-        <form onSubmit={submitProductDetails}>
-            <div className='addProductHeader'>
-                <div>
-                    <div className='addproduct_left_header'>
-                        <IconButton className='Icon_Button' onClick={() => nevigate("/UserHome/Products")}>
-                            <ArrowBackIcon className='BackArrow' />
-                        </IconButton>
+            <form onSubmit={submitProductDetails}>
+                <div className='addProductHeader'>
+                    <div>
+                        <div className='addproduct_left_header'>
+                            <IconButton className='Icon_Button' onClick={() => nevigate("/UserHome/Products")}>
+                                <ArrowBackIcon className='BackArrow' />
+                            </IconButton>
 
-                        <p className='addProductText'>Add new product</p>
+                            <p className='addProductText'>Add new product</p>
+                        </div>
                     </div>
+                    <Fab variant="extended" color="secondary" onClick={() => nevigate("/UserHome/Products/Addproducts")} type="submit">
+                        <AddIcon sx={{ mr: 1 }} />
+                        Add Product
+                    </Fab>
                 </div>
-                <Fab variant="extended" color="secondary" onClick={() => nevigate("/UserHome/Products/Addproducts")} type="submit">
-                    <AddIcon sx={{ mr: 1 }} />
-                    Add Product
-                </Fab>
-            </div>
-            <div className='Add_product_body'>
-                
+                <div className='Add_product_body'>
+
                     <div className='productInformation'>
                         <div className='productInfo_Header'>
                             Product Information
@@ -95,29 +140,29 @@ console.log(productDescription)
                         <div className='productInfo_body'>
                             <p className='label'>Product Name *
                             </p>
-                            <input type="text" placeholder='Enter Product Name' className='productInfoInput' required onChange={(e)=>setproductName(e.target.value)} />
+                            <input type="text" placeholder='Enter Product Name' className='productInfoInput' required onChange={(e) => setproductName(e.target.value)} />
                             <p className='label'>Product Category *
                             </p>
-                            <input type="text" placeholder='Enter Product Category' className='productInfoInput' required onChange={(e)=>setproductCategory(e.target.value)} />
+                            <input type="text" placeholder='Enter Product Category' className='productInfoInput' required onChange={(e) => setproductCategory(e.target.value)} />
                             <div className='product_pricing'>
                                 <div className='product_pricing_child'>
                                     <p className='label'>Price *
                                     </p>
-                                    <input type="number" placeholder='Enter Product Price' className='productInfoInput' required onChange = {(e)=>setproductPrice(e.target.value)} />
+                                    <input type="number" placeholder='Enter Product Price' className='productInfoInput' required onChange={(e) => setproductPrice(e.target.value)} />
                                 </div>
                                 <div className='product_pricing_child'> <p className='label'>Discounted Price
 
                                 </p>
                                     <input type="number" placeholder='Enter Discounted Price' className='productInfoInput'
-                                    onChange = {(e)=>setDiscountedPrice(e.target.value)} required /></div>
+                                        onChange={(e) => setDiscountedPrice(e.target.value)} required /></div>
                             </div>
                             <p className='label'>Product Description *
                             </p>
-                            <ProductDescription  setproductDescription={setproductDescription} />
+                            <ProductDescription setproductDescription={setproductDescription} />
 
 
                         </div>
-                       
+
                     </div>
 
                     <div className='productInformation'>
@@ -196,10 +241,10 @@ console.log(productDescription)
                         }
 
                     </div>
-               
 
 
-            </div>
+
+                </div>
             </form>
         </div>
 

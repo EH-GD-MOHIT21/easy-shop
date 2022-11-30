@@ -1,26 +1,45 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-export default function DesignOneProduct() {
-    const navigate = useNavigate();
-    return (
-        <div className='DesignOneBody'>
-        <p className='Heading-Top'>Saree</p>
-        <div>
-        <div className='designCategory'>
-        <div className='Category_Card'>
-            <div className='Category_Card_Header'>
-                <img className='Header_Img' src='https://cdn3.mydukaan.io/app/image/500x500/?url=https://dukaan-us.s3.amazonaws.com/6963100/96a02c56-db7d-4dd4-a1c3-9cd0850e0181/frame-19-e43ebbf5-5cb1-430b-9906-bd62052ab76d-ee6410d2-19b7-4f3c-bfe1-38339b5cfbfc.png' />
-            </div>
-            <div className='Product_Card_Body' >
-                <p className='product_title'>Classic Dress</p>
-                <p className='product_price'>₹90 ₹120 (25% OFF)</p>
-                <p className='Add_to_beg' onClick={()=>navigate("productPage")}>View Product</p>
-            </div>
-        </div>
+import { useState } from 'react';
+import { useLayoutEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-       
-        </div>
-        </div>
-    </div>
+export default function DesignOneProduct() {
+    const {dukaan, category} = useParams();
+    const [Data, setData] = useState([]);
+    useLayoutEffect(() => {
+        function getData() {
+            fetch(`http://127.0.0.1:8000/createorgetproduct?dukaan=${dukaan}&category=${category}`)
+                .then((res) => res.json())
+                .then((res) => setData(res['data']))
+        }
+        getData();
+    }, [])
+    const navigate = useNavigate();
+    console.log(Data);
+    return (
+        <>
+            {Data?.map((d1) => {
+                return (
+                    <div className='DesignOneBody'>
+                        <p className='Heading-Top'>{d1?.category}</p>
+                        <div>
+                            <div className='designCategory'>
+                                <div className='Category_Card'>
+                                    <div className='Category_Card_Header'>
+                                        <img className='Header_Img' src={d1?.images[0].url} />
+                                    </div>
+                                    <div className='Product_Card_Body' >
+                                        <p className='product_title'>{d1?.name}</p>
+                                        <p className='product_price'>₹{d1?.discounted_price} ₹{d1?.price} ({(((d1?.price-d1?.discounted_price)/d1?.price)*100).toFixed(2)}% OFF)</p>
+                                        <p className='Add_to_beg' onClick={() => navigate(`productPage/prodid=${d1?.id}`)}>View Product</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            })}
+        </>
     )
 }

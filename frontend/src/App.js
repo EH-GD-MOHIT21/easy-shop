@@ -11,8 +11,9 @@ import Landingpage from "./Pages/Landingpage";
 import LoginPage from "./Pages/LoginPage";
 import UserHome from "./Pages/UserHome";
 import RazorpayApp from "./RazorpayApi/RazorpayApp"
-
+import { useParams } from "react-router-dom";
 function App() {
+
   return (
     <div className="App">
     {/* <DesignOne /> */}
@@ -24,7 +25,7 @@ function App() {
       <Route path="ForgotPassword" element={<ForgotPassword />} />
       <Route path="CreateAccount" element={<CreateAccount />} />
       <Route path="UserHome/*" element={<UserHome/>} />
-      <Route path="DesignOne/*" element ={<DesignOne />} />
+      <Route path="dukaan=:dukaan/*" element ={<DesignOne />} />
 
     </Routes>
   </BrowserRouter> 

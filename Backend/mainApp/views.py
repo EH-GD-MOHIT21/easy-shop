@@ -40,13 +40,17 @@ class WishlistAPI(APIView):
 
 
 
-
 class ProductAPI(APIView):
     # list product for shop
     def get(self,request,*args,**kwargs):
         dukaan = request.GET['dukaan']
         category = request.GET['category']
-        return DukanCreationUtils().list_product(request,dukaan,category)
+        try:
+            prodid = request.GET['prodid']
+            return DukanCreationUtils().product_detail(request,dukaan,prodid)
+        
+        except:
+            return DukanCreationUtils().list_product(request,dukaan,category)
 
     # create product for shop
     def post(self,request,*args,**kwargs):
