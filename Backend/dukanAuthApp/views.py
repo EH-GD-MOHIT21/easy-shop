@@ -99,3 +99,8 @@ class UserAccDetailsApi(APIView):
         return Response({'status':403,'message':'Please authenticate yourself to get details about you.'})
         
         
+class UserBasicDetailsApi(APIView):
+    def post(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return DukanAuth().GetBasicDetails(request)
+        return Response({'status':403,'message':'Please authenticate yourself to get details about you.'})

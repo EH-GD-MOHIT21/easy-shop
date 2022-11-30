@@ -72,3 +72,13 @@ class CartAPI(APIView):
             return UserCartUtils().modify_cart(request)
         return Response({'status':403,'message':'Please Authenticate yourself to use this function.'})
         
+
+
+class DukaanOwnerPermissions(APIView):
+    def post(self,request,*args,**kwargs):
+        try:
+            if request.user.is_authenticated:
+                return DukaanAdditionUtils().add_owner_ship(request)
+            return Response({'status':403,'message':'you need to be authorised to perform this action.'})
+        except Exception as e:
+            return Response({'status':500,'message':str(e)})

@@ -262,6 +262,32 @@ class DukanAuth:
         user_data = DukanCreationUtils().list_dukaan(request).data
         return Response({'status':'success','basic_info':serializer.data,'owner_shop':user_data['owner_shop'],'other_owner_shop':user_data['other_owner_shop']})
     
+
+
+    def GetBasicDetails(self,request):
+        if not request.data.get('username',0):
+            return Response({'status':400,'message':"missing 'username'."})
+        username = request.data['username']
+        user = User.objects.filter(username=username)
+        if not user.exists():
+            return Response({'status':404,'message':'username not exists'})
+        else:
+            user = user[0]
+            full_name = ""
+            if user.first_name:
+                full_name += str(user.first_name)
+            if user.middle_name:
+                full_name += " " + str(user.middle_name)
+            if user.last_name:
+                full_name += " " + str(user.last_name)
+            username = user.username
+            email = user.email
+            data = {"name":full_name,"username":username,"email":email}
+            if user.profile_pic:
+                data['profile_pic'] = user.profile_pic
+            return Response({'status':200,'message':'success','data':data})
+
+
     def UpdateUserDetails(self,request):
         data = request.data.get('username',0)
         data1 = request.data.get('email',0)

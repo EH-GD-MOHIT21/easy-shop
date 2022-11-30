@@ -1,6 +1,7 @@
 from .models import Dukaan,DukaanOwner,Product,Image,WishList,Cart,SubCart
 from rest_framework.response import Response
 from .serializers import DukaanSerializer,DukaanOwnerSerializer,ProductSerializer,ProductMainSerializer,SubCartsSerializer
+from dukanAuthApp.models import User
 
 class DukanCreationUtils:
     def create_dukaan(self,request):
@@ -95,6 +96,21 @@ class DukaanAdditionUtils:
         products = Product.objects.filter(dukaan=dukaan).distinct('category')
         serializer = ProductSerializer(products,many=True)
         return Response({'status':200,'message':'success','list_dukaan':serializer.data})
+
+
+
+    def add_owner_ship(self,request):
+        dukaan = request.data['dukaan']
+        username = request.data["username"]
+        permission = request.data["permission"]
+        dukaan = Dukaan.objects.get(slug=dukaan)
+        user = User.objects.get(username=username)
+        if request.user.username == username:
+            return Response({'status':200,'message':'you can not add yourself to permission'})
+        model,_ = DukaanOwner.objects.get_or_create(owner=user,dukaan=dukaan)
+        model.perms = permission
+        model.save()
+        return Response({'status':200,'message':f'successfully updated permission for user {username}.'})
         
 
         
