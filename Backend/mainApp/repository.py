@@ -45,11 +45,8 @@ class DukanCreationUtils:
         discountedPrice = request.data['discountedPrice']
         imageList = request.FILES.getlist('imageList')
         Addvarient = request.data['Addvarient']
-        dukaan = Dukaan.objects.get(slug=dukaan)
-        dukaanowner = DukaanOwner.objects.filter(user=request.user,dukaan=dukaan,perms__icontains='WRITE')
-        if not (dukaan.creator == request.user or dukaanowner.exists()):
-            return Response({'status':403,'message':'You are not authorised to perform this action.'})
         model = Product()
+        dukaan = Dukaan.objects.get(slug=dukaan)
         model.dukaan = dukaan
         model.name = name
         model.description = desc
@@ -82,19 +79,6 @@ class DukanCreationUtils:
         serializer = ProductMainSerializer(product)
         print(serializer.data)
         return Response({'status':200,'message':'success','data':serializer.data})
-
-
-
-    def delete_dukaan(self,request):
-        dukaan = request.data['dukaan']
-        dukaan = Dukaan.objects.get(slug=dukaan)
-        dukaan_owners = DukaanOwner.objects.filter(owner=request.user,dukaan=dukaan,perms__icontains='DELETE')
-        if request.user == dukaan.creator or dukaan_owners.exists():
-            # delete the dukaan
-            print('delete the dukaan')
-            return Response({'status':200,'message':'dukaan removed successfully'})
-        else:
-            return Response({'status':403,'message':'You are not eligible to perform this action.'})
 
 
 
@@ -131,20 +115,6 @@ class DukaanAdditionUtils:
                 data['images'].append(str(img.url))
             main_data.append(data)
         return Response({'status':200,'message':'success','category':main_data})
-
-
-    def add_owner_ship(self,request):
-        dukaan = request.data['dukaan']
-        username = request.data['username']
-        dukaan = Dukaan.objects.get(slug=dukaan)
-        user = User.objects.get(username=username)
-        do = DukaanOwner.objects.get_or_create(owner=user,dukaan=dukaan)
-        if request.data["permission"] == '__remove__':
-            do.delete()
-            return Response({'status':200,'message':f'successfully updated permission for user {username}'})
-        do.perms = request.data["permission"]
-        do.save()
-        return Response({'status':200,'message':f'successfully updated permission for user {username}'})
         
 
         
@@ -157,7 +127,7 @@ class UserCartUtils:
         for subcart in subcarts:
             subcart.delete()
         for cart_item in data:
-            product = Product.objects.get(id=int(cart_item['productid']))
+            product = Product.objects.get(id=int(cart_item['product_id']))
             model = SubCart()
             model.product,model.quantity = product,int(cart_item['quantity'])
             model.save()

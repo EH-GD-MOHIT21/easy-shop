@@ -65,7 +65,7 @@ class ProductSerializer(ModelSerializer):
 
 class SubCartsSerializer(ModelSerializer):
     product = ProductMainSerializer(read_only=True)
-
+    quantity = serializers.ReadOnlyField(   )
     class Meta:
         model = SubCart
         fields = ["product","quantity"]

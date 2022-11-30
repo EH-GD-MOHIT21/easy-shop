@@ -39,11 +39,15 @@ padding: 16px;
     letter-spacing: 2px;
     font-weight: 600;
     margin: 16px  0px;
-    height: 200px;
+    height: 150px;
     overflow: auto;
     padding-left: 0;
 }
-
+.Product_Qty{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .Display_details_bottom{
     padding: 16px 0px ;
     display: grid;
@@ -80,4 +84,18 @@ padding: 16px;
 .add_bags:hover{
     background-color: rgb(52, 51, 51);
     color: white;
+}
+
+.Qty_input{
+    padding: 10px;
+    width: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: black !important;
+}
+
+.Qty{
+    color: white;
+    font-weight: 600;
+    font-size: 1.6rem;
 }

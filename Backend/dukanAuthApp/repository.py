@@ -284,7 +284,7 @@ class DukanAuth:
             email = user.email
             data = {"name":full_name,"username":username,"email":email}
             if user.profile_pic:
-                data['profile_pic'] = user.profile_pic
+                data['profile_pic'] = user.profile_pic.url
             return Response({'status':200,'message':'success','data':data})
 
 
