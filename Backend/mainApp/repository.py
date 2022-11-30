@@ -127,7 +127,7 @@ class UserCartUtils:
         for subcart in subcarts:
             subcart.delete()
         for cart_item in data:
-            product = Product.objects.get(id=int(cart_item['productid']))
+            product = Product.objects.get(id=int(cart_item['product_id']))
             model = SubCart()
             model.product,model.quantity = product,int(cart_item['quantity'])
             model.save()
