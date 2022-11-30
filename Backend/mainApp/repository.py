@@ -1,6 +1,7 @@
 from .models import Dukaan,DukaanOwner,Product,Image,WishList,Cart,SubCart
 from rest_framework.response import Response
 from .serializers import DukaanSerializer,DukaanOwnerSerializer,ProductSerializer,ProductMainSerializer,SubCartsSerializer
+from dukanAuthApp.models import User
 from paymentsApp.models import Order
 from paymentsApp.serializers import OrderSerializer
 
