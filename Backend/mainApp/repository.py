@@ -1,7 +1,8 @@
-from .models import Dukaan,DukaanOwner,Product,Image,WishList,Cart,SubCart
+from .models import Dukaan,DukaanOwner,Product,Image,WishList,Cart,SubCart,WithdrawlForm
 from rest_framework.response import Response
-from .serializers import DukaanSerializer,DukaanOwnerSerializer,ProductSerializer,ProductMainSerializer,SubCartsSerializer
+from .serializers import DukaanSerializer,DukaanOwnerSerializer,ProductSerializer,ProductMainSerializer,SubCartsSerializer,Withdrawlformserializer
 from dukanAuthApp.models import User
+from django.utils import timezone
 
 class DukanCreationUtils:
     def create_dukaan(self,request):
@@ -129,7 +130,30 @@ class DukaanAdditionUtils:
                 data['images'].append(str(img.url))
             main_data.append(data)
         return Response({'status':200,'message':'success','category':main_data})
-        
+
+
+    def get_withdrawal_req(self,request):
+        withdrawalreq = WithdrawlForm.objects.filter(user=request.user)
+        serializer = Withdrawlformserializer(withdrawalreq,many=True)
+        return Response({'status':200,'message':'success','data':serializer.data})
+
+
+    def add_withdrawal_req(self,request):
+        user = request.user
+        amount = float(request.data['amount'])
+        dukaan = Dukaan.objects.get(slug=request.data['dukaan'])
+        pan_no = request.data['panno']
+        allobjs = WithdrawlForm.objects.filter(user=request.user).order_by('-id')
+        if allobjs.exists():
+            lastone = allobjs[0]
+            if (timezone.now()-lastone.date).days < 3:
+                return Response({'status':400,'message':'You recently have an pending req/approved request please wait for 3 days for next request.'})
+        model = WithdrawlForm()
+        model.user,model.amount = user,amount
+        model.dukaan,model.pan_no = dukaan,pan_no
+        model.additional_details = request.data['additional_details']
+        model.save()
+        return Response({'status':200,'message':'success'})
 
         
 class UserCartUtils:

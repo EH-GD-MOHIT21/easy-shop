@@ -106,3 +106,21 @@ class DukaanOwnerPermissions(APIView):
             return Response({'status':403,'message':'you need to be authorised to perform this action.'})
         except Exception as e:
             return Response({'status':500,'message':str(e)})
+
+
+class WithDrawalFormReq(APIView):
+    def get(self,request,*args,**kwargs):
+        try:
+            if request.user.is_authenticated:
+                return DukaanAdditionUtils().get_withdrawal_req(request)
+            return Response({'status':403,'message':'you need to be authorised to perform this action.'})
+        except Exception as e:
+            return Response({'status':500,'message':str(e)})
+
+    def post(self,request,*args,**kwargs):
+        try:
+            if request.user.is_authenticated:
+                return DukaanAdditionUtils().add_withdrawal_req(request)
+            return Response({'status':403,'message':'you need to be authorised to perform this action.'})
+        except Exception as e:
+            return Response({'status':500,'message':str(e)})

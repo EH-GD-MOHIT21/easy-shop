@@ -77,6 +77,21 @@ class WishList(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
 
 
+class WithdrawlForm(models.Model):
+    user = models.ForeignKey(User,on_delete=models.Case)
+    amount = models.FloatField()
+    dukaan = models.ForeignKey(Dukaan,on_delete=models.Case)
+    pan_no = models.CharField(max_length=10)
+    date = models.DateTimeField(null=True,blank=True)
+    additional_details = models.TextField(null=True,blank=True)
+    status = models.TextField(default='PENDING')
+
+    def save(self,*args,**kwargs):
+        if not isinstance(self.date,datetime):
+            self.date = timezone.now()
+        super(WithdrawlForm,self).save(*args,**kwargs)
+
+
 '''
     SIGNALS
 '''
