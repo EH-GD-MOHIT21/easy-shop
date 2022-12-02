@@ -1,12 +1,12 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
+import Button from '@mui/material/Button';import { useLayoutEffect } from 'react';
 export default function Withdrawal() {
     const [otheOwnerShop, setotheOwnerShop] = useState([])
     const [productList, setProductList] = useState([]);
     const [selctDukaan, setSelectDukaan] = React.useState("");
     const [dukaanlist, setdukaanlist] = useState([]);
-  
+    const [status,setStatus] = useState([])
 
     const [Amount, setAmount] = useState("");
     const [PanNumber, setPanNumber] = useState("");
@@ -89,6 +89,14 @@ export default function Withdrawal() {
     }
 
     const csrftoken = getCookie('X-CSRFToken');
+
+    useLayoutEffect(() => {
+        fetch('http://127.0.0.1:8000/withdrawlreq')
+        .then((res)=>res.json())
+        .then(data=>setStatus(data))
+   
+    }, [])
+    console.log(status);
     return (
         <div>
             <div className='Select_Dukaan'>

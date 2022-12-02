@@ -66,10 +66,10 @@ export default function Home() {
     .then(res=>res.json())
     .then(data=>setUserData(data))
   }, [])
+  console.log(userData)
   return (
     <>
-    <h1 className='welcome_back'>Welcome Back {userData.basic_info
-.first_name}</h1>
+    <h1 className='welcome_back'>Welcome Back {userData?.basic_info?.first_name}</h1>
     <p className='Overview'>Overview</p>
     <div>
       <p>Two Factor Authentication</p>
@@ -78,7 +78,7 @@ export default function Home() {
     <div className='userDetails'>
     <div className='user_image'></div>
     <div className='user_Data'>
-    <p> Full Name: {userData.first_name + userData.last_name}</p>
+    <p> Full Name: {userData?.first_name + userData?.last_name}</p>
     <p></p>
     <p></p>
     <p></p>
