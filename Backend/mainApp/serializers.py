@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Dukaan,DukaanOwner,Product,Image,SubCart,WishList
+from .models import Dukaan,DukaanOwner,Product,Image,SubCart,WishList,WithdrawlForm
 from rest_framework import serializers
 from dukanAuthApp.models import User
 
@@ -69,3 +69,14 @@ class SubCartsSerializer(ModelSerializer):
     class Meta:
         model = SubCart
         fields = ["product","quantity"]
+
+
+class Withdrawlformserializer(ModelSerializer):
+    username = serializers.ReadOnlyField(source='user.username')
+    email = serializers.ReadOnlyField(source='user.email')
+    slug = serializers.ReadOnlyField(source='dukaan.slug')
+    name = serializers.ReadOnlyField(source='dukaan.name')
+    seller_address = serializers.ReadOnlyField(source='dukaan.seller_address')
+    class Meta:
+        model = WithdrawlForm
+        fields = ["amount","pan_no","date","status","username","email","name","seller_address","slug","additional_details"]
