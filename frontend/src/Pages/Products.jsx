@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 export default function ProductPage({setdukaanName,dukaanName}) {
+  const [otheOwnerShop,setotheOwnerShop] = useState([])
   const nevigate = useNavigate();
   const [selctDukaan, setSelectDukaan] = React.useState("");
   const [dukaanlist, setdukaanlist] = useState([]);
@@ -22,9 +23,10 @@ export default function ProductPage({setdukaanName,dukaanName}) {
     input.focus();
   }
   const selectDukaan = (e) => {
+    console.log(e.target.value)
     setSelectDukaan(e.target.value);
     getExistingProduct(e.target.value);
-    setdukaanName(e.target.value)
+    setdukaanName(e.target.value);
   }
 
   function getExistingDukaan() {
@@ -33,6 +35,7 @@ export default function ProductPage({setdukaanName,dukaanName}) {
       .then((data) => {
         console.log(data)
         setdukaanlist(data.owner_shop)
+        setotheOwnerShop(data.other_owner_shop)
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -50,7 +53,7 @@ export default function ProductPage({setdukaanName,dukaanName}) {
         console.error('Error:', error);
       });
   }
-console.log(productList)
+const newMember = otheOwnerShop.filter(data=>data["perms"].includes("WRITE"))
   return (
     <div className='product_page'>
       <div className='Product_Header'>
@@ -64,9 +67,9 @@ console.log(productList)
           <select name="dukaan" required className='selct_dukaan' onChange={selectDukaan}>
             <option value="" disabled selected hidden className='opt_dukaan'>Select a Dukaan</option>
             {
-              dukaanlist.map((data) => {
+              [...dukaanlist,...newMember].map((data) => {
                 return (
-                  <option value={data.name} className='opt_dukaan'>{data.name}</option>
+                  <option value={data.slug} className='opt_dukaan'>{data.slug} - {data.name}</option>
                 )
               })
             }

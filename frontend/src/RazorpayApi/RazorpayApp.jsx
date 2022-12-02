@@ -114,13 +114,13 @@ function RazorpayApp() {
     {
       productDetails && (
         <div className="card">
-          <img src={productDetails.image} alt="Denim Jeans" />
+          {/* <img src={productDetails.image} alt="Denim Jeans" />
           <div className='details'>
             <h1>{productDetails.title.substring(0, 20) + "..."}</h1>
-            <p className="price">{"₹ " + (productDetails.price * 75.61).toFixed(2)}</p>
-            <p>{productDetails.description.substring(0, 70) + "..."}</p>
+            <p className="price">{"₹ " + (productDetails.price * 75.61).toFixed(2)}</p> */}
+            {/* <p>{productDetails.description.substring(0, 70) + "..."}</p> */}
             <button onClick={displayRazorpay}>BUY</button>
-          </div>
+          {/* </div> */}
         </div>
       )
     }

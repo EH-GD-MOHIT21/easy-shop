@@ -1,12 +1,8 @@
 import React, { useLayoutEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import "./Orders.css"
 export default function Orders() {
   const [orderList, setorderList] = useState([]);
-  useLayoutEffect(() => {
-    fetch("http://127.0.0.1:8000/cartorder")
-      .then((res) => res.json())
-      .then((datas) => setorderList(datas.data))
-  }, [])
   console.log(orderList);
   return (
     <div className='Orders'>
@@ -35,7 +31,6 @@ export default function Orders() {
                     <td>{data?.order_items?.length}</td>
                     <td>{data.order_status}</td>
                     <td>{data.amount}</td>
-
                   </tr>
                 )
               })

@@ -5,8 +5,10 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { IconButton } from '@mui/material';
 import Chart from "react-apexcharts";
-
+import Switch from '@mui/material/Switch';
 export default function Home() {
+  const label = { inputProps: { 'aria-label': 'Size switch demo' } };
+
   const state_total_sales = {
     options: {
       chart: {
@@ -60,11 +62,15 @@ export default function Home() {
     <>
     <h1 className='welcome_back'>Welcome Back Deepanshu</h1>
     <p className='Overview'>Overview</p>
+    <div>
+      <p>Two Factor Authentication</p>
+      <p> <Switch {...label} defaultChecked color="secondary"  /></p>
+    </div>
     <div className='dukaan_Home'>
       <div className='share_store_link'>
         <p className='share_store_link_text'>Share store link</p>
         <p className='share_store_link_text2'>Customers can visit the following link and place their orders.</p>
-        <p className='dukan_Link'>mydukaan.io/pinu27</p>
+        <p className='dukan_Link'><a href="http://127.0.0.1:8000/dukaan=pinu" target="_blank">Visit Your Dukaan</a></p>
         <div className='share_dukaan'>
           <p>Share via</p>
           <div>

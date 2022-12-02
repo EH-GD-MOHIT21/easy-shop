@@ -37,3 +37,55 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.inputUserName{
+    color: black !important;
+}
+
+.DialogBody{
+    display: flex;
+    align-items: center;
+    justify-content:space-between ;
+}
+
+.dialog_user_profile{
+    object-fit: contain;
+    width: 100px;
+    height: 100px;
+}
+
+.DialogBodyRight{
+    color: black !important;
+}
+.DialogBodyRight p{
+    color: black !important;
+}
+.inputUserName{
+    color: black !important;
+}
+input#filled-search {
+    color: black !important;
+}
+
+.MuiListItemText-root span, .MuiListItemText-root input{
+    color: black !important;
+}
+
+.formControl{
+    padding-left: 20px;
+    width: 100%;
+}
+
+.css-zun73v{
+    background-color: rebeccapurple;
+    margin-right: 18px;
+}
+.css-zun73v:hover{
+    background-color:rgb(112, 79, 145) ;
+}
+
+.Exiting_dukan_name{
+    padding-bottom: 22px;
+    background-color: #494949;
+}
+

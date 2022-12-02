@@ -85,6 +85,20 @@ class DukanCreationUtils:
 
 class DukaanAdditionUtils:
 
+    def add_owner_ship(self,request):
+        dukaan = request.data['dukaan']
+        username = request.data['username']
+        dukaan = Dukaan.objects.get(slug=dukaan)
+        print(dukaan,username,request.data["permission"])
+        user = User.objects.get(username=username)
+        do,_ = DukaanOwner.objects.get_or_create(owner=user,dukaan=dukaan)
+        if request.data["permission"] == '__remove__':
+            do.delete()
+            return Response({'status':200,'message':f'successfully updated permission for user {username}'})
+        do.perms = request.data["permission"]
+        do.save()
+        return Response({'status':200,'message':f'successfully updated permission for user {username}'})
+
     def add_to_wishlist(self,request):
         user = request.user
         product_id = request.data['product_id']
@@ -159,8 +173,8 @@ class UserCartUtils:
 
     def list_cart_items(self,request):
         user = request.user
-        sub_cart = Cart.objects.get(user=user).sub_carts
-        sub_cart = sub_cart.all()
+        sub_cart = Cart.objects.get(user=user)
+        sub_cart = sub_cart.sub_carts.all()
         final_price = 0
         data = SubCartsSerializer(sub_cart,many=True).data
         print(data)

@@ -20,8 +20,17 @@
 
 }
 
-.Cart_itm-left {
+.Cart_itm-lefts {
     margin-left: 16px;
+    /* height: 200px; */
+    overflow: hidden;
+    margin-right: 16px;
+}
+
+.Cart_itm-lefts {
+    margin-left: 16px;
+    height: 200px;
+    overflow: hidden;
 }
 
 .total-Money {
@@ -45,10 +54,11 @@
     border: 1px solid whitesmoke;
     border-radius: 4px;
     margin-right: 12px;
+    margin-left: 12px;
 }
 
 .Cart_itm_right {
-    margin-left: 16px;
+    margin-left: 32px;
 }
 
 .product_title {
@@ -162,4 +172,8 @@
     margin-top: 22px;
     height: 500px;
     overflow: auto;
+}
+
+.myOrders_main{
+    padding-bottom: 32px;
 }

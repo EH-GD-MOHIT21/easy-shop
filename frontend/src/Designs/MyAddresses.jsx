@@ -4,12 +4,26 @@ export default function MyAddresses() {
     const [addAdress, setAddAddress] = useState(true);
     return (
         <div className='MyAddresses'>
-            <input type="radio" id="html" name="fav_language" value="HTML" />
-            <label for="html">HTML</label><br />
-            <input type="radio" id="css" name="fav_language" value="CSS" />
-            <label for="css">CSS</label><br />
+            <div className='Exiting_Addresses'>
+            <div className='existing_Address'>
             <input type="radio" id="javascript" name="fav_language" value="JavaScript" />
-            <label for="javascript">JavaScript</label>
+            <label for="javascript">
+                <p className='user_add_details'>Name: Deepanshu Sarswat</p>
+                <p className='user_add_details'>Address: Nokha, Bikaner, Rajasthan</p>
+                <p className='user_add_details'>Mobile: 8800638900</p>
+                <p className='user_add_details'>Email: sarswatdeepanshu@gmail.com</p>
+            </label>
+            </div>
+            <div className='existing_Address'>
+            <input type="radio" id="javascript" name="fav_language" value="JavaScript" />
+            <label for="javascript">
+                <p className='user_add_details'>Name: Deepanshu Sarswat</p>
+                <p className='user_add_details'>Address: Nokha, Bikaner, Rajasthan</p>
+                <p className='user_add_details'>Mobile: 8800638900</p>
+                <p  className='user_add_details'>Email: sarswatdeepanshu@gmail.com</p>
+            </label>
+            </div>
+            </div>
             {
                 addAdress == true ? (<button className='Add_more_Address' onClick={() => setAddAddress(false)}>Add</button>) : <button className='Add_more_Address' onClick={() => setAddAddress(true)}> Remove</button>
             }

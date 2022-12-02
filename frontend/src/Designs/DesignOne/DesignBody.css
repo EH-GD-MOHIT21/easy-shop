@@ -27,6 +27,8 @@
 }
 .Category_Card_Header{
     width: 100%;
+    height: 200px;
+    overflow: hidden;
 }
 .Header_Img{
     width: 100%;

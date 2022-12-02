@@ -17,6 +17,9 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { DukaanSelect } from '../Redux/DukaanSlice';
 import AlertDialogSlide from './AddDukanDialog';
+import CreateIcon from '@mui/icons-material/Create';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ChromeReaderModeIcon from '@mui/icons-material/ChromeReaderMode';
 const useStyles = makeStyles(theme => ({
     accordian: {
         backgroundColor: "tran !important"
@@ -26,6 +29,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 export default function AddDukaan() {
+    const [otherShop, setOtherShop] = useState([])
     const editor = useRef(null);
     const classes = useStyles();
     const changeDukaan = useSelector(DukaanSelect);
@@ -125,7 +129,8 @@ export default function AddDukaan() {
         fetch('http://127.0.0.1:8000/createorgetdukaan')
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                console.log(data.other_owner_shop)
+                setOtherShop(data.other_owner_shop)
                 setExistingDukaan(data.owner_shop)
             })
             .catch((error) => {
@@ -133,8 +138,28 @@ export default function AddDukaan() {
             });
     }
     useEffect(getExistingDukaan, []);
+    const DeleteVarient = (slug) => {
+        fetch('http://127.0.0.1:8000/deletedukaan', {
 
-    console.log(changeDukaan)
+            method: "POST",
+
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            withCredentials: true,
+            body: JSON.stringify({dukaan:slug}),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                getExistingDukaan();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
     return (
         <div className='Addprroducts'>
             <div className="Show_Dukaan">
@@ -145,12 +170,19 @@ export default function AddDukaan() {
                             return (
                                 <div className='Existing_Dukaan'>
                                     <img className="Existing_Dukaan_logo" src={data?.logo} />
-                                    <div className='Exiting_dukan_name'>{data.name}</div>
+                                    <div className='Exiting_dukan_name'>{data.name}
+                                        <Fab size="small" color="secondary" aria-label="add"
+                                            onClick={() => DeleteVarient(data.slug)}
+                                        >
+                                            <DeleteIcon />
+                                        </Fab>
+                                    </div>
                                     <div className='Exiting_dukan_name'>
                                         <Button variant="contained" size="large" color="secondary">
-                                            View
+
+                                            <a target="_blank" href={`http://127.0.0.1:8000/dukaan=${data.slug}`}>View</a>
                                         </Button>
-                                       <AlertDialogSlide />
+                                        <AlertDialogSlide slug={data.slug} />
                                     </div>
                                 </div>
                             )
@@ -160,7 +192,37 @@ export default function AddDukaan() {
 
 
                 </div>
-                
+
+            </div>
+
+            <div className="Show_Dukaan">
+                <p className="Ext_dukaan">Other Dukaan</p>
+                <div className='Existing_Dukaans'>
+                    {
+                        otherShop.map((data) => {
+                            return (
+                                <div className='Existing_Dukaan'>
+                                    <img className="Existing_Dukaan_logo" src={data?.logo} />
+                                    <div className='Exiting_dukan_name'>{data.name}
+
+                                    </div>
+                                    <div className='Exiting_dukan_name'>
+                                        <div> Permissions: </div>
+
+                                        <div><ChromeReaderModeIcon /></div>
+                                        <div>{data.perms.includes("WRITE") && <CreateIcon />}</div>
+                                        <div>{data.perms.includes("DELETE") && <DeleteIcon />}</div>
+
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+
+
+
+                </div>
+
             </div>
 
             <div className="Add_product_sextion">
@@ -199,7 +261,7 @@ export default function AddDukaan() {
                                 Dukaan Information
                             </div>
                             <div className='productInfo_body'>
-                                <p className='label'>Dekaan Name *
+                                <p className='label'>Dukaan Name *
                                 </p>
                                 <input type="text" placeholder='Enter Dukaan Name' className='productInfoInput' required onChange={(e) => setDukaanName(e.target.value)} />
                                 <p className='label'>Dukaan Category *
