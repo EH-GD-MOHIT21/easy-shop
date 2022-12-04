@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import LoginViewApi,LoginOTPValidateApi,RecoverAccountApi,ValidateRecoverTokenApi,RegisterViewApi,ValidateUserRegisterApi,UserAccDetailsApi,CheckForUsernameApi,CheckForEmailApi,IsAuthenticatedApi,UserBasicDetailsApi
+from .views import LoginViewApi,LoginOTPValidateApi,RecoverAccountApi,ValidateRecoverTokenApi,RegisterViewApi,ValidateUserRegisterApi,UserAccDetailsApi,CheckForUsernameApi,CheckForEmailApi,IsAuthenticatedApi,UserBasicDetailsApi,SignOutApi
 
 urlpatterns = [
     path('login',LoginViewApi.as_view()),
@@ -13,4 +13,5 @@ urlpatterns = [
     path('checkforemail',CheckForEmailApi.as_view()),
     path('isauthenticated',IsAuthenticatedApi.as_view()),
     path('userbasicdetails',UserBasicDetailsApi.as_view()),
+    path('logout',SignOutApi.as_view())
 ]
