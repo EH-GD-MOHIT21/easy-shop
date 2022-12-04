@@ -50,6 +50,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Productpage from './Productpage';
 import AddDukaan from './AddDukaan';
+import Withdrawal from './Withdrawal';
 
 
 const drawerWidth = 240;
@@ -180,6 +181,7 @@ export default function MiniDrawer() {
             <Route path="Analytics" element={<Analytics />} />
             <Route path="Payments" element={<Payment />} />
             <Route path="Customers" element={<Customers />} />
+            <Route path="Withdrawal" element={<Withdrawal />} />
           </Routes>
         
       </Box>

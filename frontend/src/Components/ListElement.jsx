@@ -6,6 +6,7 @@ import AnalyticsIcon from '@mui/icons-material/Analytics';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import TuneIcon from '@mui/icons-material/Tune';
 import AddIcon from '@mui/icons-material/Add';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 const menuItems = [
     {
       text: "Home",
@@ -22,11 +23,11 @@ const menuItems = [
       icon: <FilterFramesIcon className='listColor' />,
       path: "/UserHome/Orders",
     },
-    // {
-    //   text: "Delivery",
-    //   icon: <LocalShippingIcon className='listColor' />,
-    //   path: "/UserHome/Delivery",
-    // },
+    {
+      text: "Withdrawal",
+      icon: <CurrencyRupeeIcon className='listColor' />,
+      path: "/UserHome/Withdrawal",
+    },
     {
       text: "Products",
       icon: <GridViewIcon className='listColor' />,

@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Home.css"
+import { useLayoutEffect } from 'react';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -7,6 +8,7 @@ import { IconButton } from '@mui/material';
 import Chart from "react-apexcharts";
 import Switch from '@mui/material/Switch';
 export default function Home() {
+  const [userData, setUserData] = useState([])
   const label = { inputProps: { 'aria-label': 'Size switch demo' } };
 
   const state_total_sales = {
@@ -58,13 +60,30 @@ export default function Home() {
       },
     ],
   };
+
+  useLayoutEffect(() => {
+    fetch("http://127.0.0.1:8000/mydetails")
+    .then(res=>res.json())
+    .then(data=>setUserData(data))
+  }, [])
+  console.log(userData)
   return (
     <>
-    <h1 className='welcome_back'>Welcome Back Deepanshu</h1>
+    <h1 className='welcome_back'>Welcome Back {userData?.basic_info?.first_name}</h1>
     <p className='Overview'>Overview</p>
     <div>
       <p>Two Factor Authentication</p>
       <p> <Switch {...label} defaultChecked color="secondary"  /></p>
+    </div>
+    <div className='userDetails'>
+    <div className='user_image'></div>
+    <div className='user_Data'>
+    <p> Full Name: {userData?.first_name + userData?.last_name}</p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    </div>
     </div>
     <div className='dukaan_Home'>
       <div className='share_store_link'>
