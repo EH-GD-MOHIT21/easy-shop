@@ -104,3 +104,11 @@ class UserBasicDetailsApi(APIView):
         if request.user.is_authenticated:
             return DukanAuth().GetBasicDetails(request)
         return Response({'status':403,'message':'Please authenticate yourself to get details about you.'})
+
+
+
+class SignOutApi(APIView):
+    def post(self,request):
+        if request.user.is_authenticated:
+            return DukanAuth().SignmeOut(request)
+        return Response({'status':403,'message':'You are not logged in.'})

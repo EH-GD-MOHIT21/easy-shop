@@ -24,6 +24,15 @@ class DukanCreationUtils:
         return Response({'status':200,'message':'success','url':model.slug})
 
 
+    def delete_dukaan(self,request):
+        dukaan = Dukaan.objects.get(slug=request.data['dukaan'])
+        Dukaanowner = DukaanOwner.objects.filter(owner=request.user,dukaan=dukaan,perms__icontains='DELETE')
+        if request.user == dukaan.creator or Dukaanowner.exists():
+            dukaan.delete()
+            return Response({'status':200,'message':'Dukaan deleted successfully.'})
+        return Response({'status':400,'message':'You are not authorised to perform this action.'})
+
+
     def list_dukaan(self,request):
         user = request.user
         created_dukaans = Dukaan.objects.filter(creator=user)

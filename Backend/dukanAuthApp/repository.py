@@ -1,5 +1,5 @@
 from .exceptions import InvalidCredentials, WaitTimeError, UserNotExists
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from rest_framework.response import Response
 from django.core.cache import cache
 from random import randint, choices
@@ -300,3 +300,9 @@ class DukanAuth:
             return self.UserDetails(request)
         else:
             return Response({'status':404,'message': 'Invalid data'})
+
+
+    
+    def SignmeOut(self,request):
+        logout(request)
+        return Response({'status':200,'message':'success'})
