@@ -3,7 +3,11 @@ import { useParams } from 'react-router-dom';
 import "./Orders.css"
 export default function Orders() {
   const [orderList, setorderList] = useState([]);
-  console.log(orderList);
+  useLayoutEffect(()=>{
+    fetch("http://127.0.0.1:8000/dukaanorders/dukaan=pinu")
+    .then((res)=>res.json())
+    .then((data)=>console.log(data))
+  },[])
   return (
     <div className='Orders'>
     <p className='orders_text'>Orders</p>

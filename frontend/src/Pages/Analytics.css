@@ -10,8 +10,7 @@
 }
 
 .Analytics_Body{
-    display: grid;
-    grid-template-columns: 20% 20% 20% 20%;
+    display: flex;
     justify-content: space-between;
     margin-top: 48px;
 }

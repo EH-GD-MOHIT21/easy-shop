@@ -1,6 +1,6 @@
 .dukaan_Home{
     display: grid;
-    grid-template-columns: 25% 25% 25%;
+    grid-template-columns: 45% 45% ;
     justify-content: space-between;
     margin-top: 32px;
 }
@@ -9,6 +9,7 @@
     background-color: #424242;
     padding: 16px;
     border-radius: 8px;
+    margin-bottom: 16px;
 }
 
 .share_store_link_text{
@@ -55,4 +56,61 @@
 .Overview{
     font-size: 1.4rem;
     font-weight: 600;
+}
+
+.dukaan_details_body{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.img_logo_dukaan{
+    object-fit: contain;
+    height: 120px;
+    width: 120px;
+}
+
+span.dukaan_name {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.dukaan_info p{
+    margin-bottom: 8px;
+}
+
+span.dukaan_name-value {
+    font-size: 1.3rem;
+    margin-left: 6px;
+    color: white;
+    text-decoration: underline;
+    letter-spacing: 2px;
+}
+
+.Dukaan_previous_Data{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+}
+
+.userDetails{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+}
+
+.dukan_log_imgg{
+    object-fit: contain;
+    height: 300px;
+    width: 300px;
+}
+
+.user_Data{
+    background-color: #424242;
+    padding: 32px;
+    border-radius: 8px;
 }

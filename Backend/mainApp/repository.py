@@ -85,7 +85,7 @@ class DukanCreationUtils:
 
 
 class DukaanAdditionUtils:
-
+    
     def add_owner_ship(self,request):
         dukaan = request.data['dukaan']
         username = request.data['username']

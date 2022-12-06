@@ -9,5 +9,6 @@ urlpatterns = [
     path('listdukaancategory',ListDukaanCategoryAPI.as_view()),
     path('managepermission',DukaanOwnerPermissions.as_view()),
     path('deletedukaan',DeleteDukaanAPI.as_view()),
-    path('withdrawlreq',WithDrawalFormReq.as_view())
+    path('withdrawlreq',WithDrawalFormReq.as_view()),
+
 ]

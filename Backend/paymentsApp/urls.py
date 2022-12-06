@@ -6,4 +6,5 @@ urlpatterns = [
     path('verifySignature/', views.verifySignature),
     path('cartorder',views.CartOrders.as_view()),
     path('dukaanorders',views.DukaanOrders.as_view()),
+    path('orderdetails',views.OrderDetailApi.as_view())
 ]

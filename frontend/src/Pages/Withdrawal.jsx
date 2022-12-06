@@ -127,7 +127,8 @@ export default function Withdrawal() {
                     <input type="text" placeholder='ACCOUNT DETAILS' className='productInfoInput' required onChange={(e) => setAccountDetails(e.target.value)} />
 
                 </div>
-                <Button variant="contained" size="large" onClick={handleSubmit}>
+                <Button color='secondary'
+                variant="contained" size="large" onClick={handleSubmit}>
                     SUBMIT
                 </Button>
             </div>

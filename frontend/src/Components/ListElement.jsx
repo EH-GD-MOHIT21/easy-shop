@@ -37,11 +37,12 @@ const menuItems = [
         text: "Analytics",
         icon: <AnalyticsIcon className='listColor' />,
         path: "/UserHome/Analytics",
-      },{
-        text: "Payments",
-        icon: <PaymentsIcon className='listColor' />,
-        path: "/UserHome/Payments",
       },
+      // {
+      //   text: "Payments",
+      //   icon: <PaymentsIcon className='listColor' />,
+      //   path: "/UserHome/Payments",
+      // },
       {
         text: "Customers",
         icon: <TuneIcon className='listColor' />,

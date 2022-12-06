@@ -53,7 +53,8 @@ export default function ProductPage({setdukaanName,dukaanName}) {
         console.error('Error:', error);
       });
   }
-const newMember = otheOwnerShop.filter(data=>data["perms"].includes("WRITE"))
+const newMember = otheOwnerShop.filter(data=>data["perms"].includes("WRITE"));
+console.log(dukaanlist)
   return (
     <div className='product_page'>
       <div className='Product_Header'>
