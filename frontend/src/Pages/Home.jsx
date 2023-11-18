@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Button from '@mui/material/Button';
 import "./Home.css"
 import { useLayoutEffect } from 'react';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
@@ -7,7 +8,9 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import { IconButton } from '@mui/material';
 import Chart from "react-apexcharts";
 import Switch from '@mui/material/Switch';
+import { useNavigate } from 'react-router-dom';
 export default function Home() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState([]);
   const [otheOwnerShop, setotheOwnerShop] = useState([])
   const label = { inputProps: { 'aria-label': 'Size switch demo' } };
@@ -109,7 +112,7 @@ export default function Home() {
   }
   useEffect(getExistingDukaan, []);
 
-  const newMember = otheOwnerShop.filter(data => data["perms"].includes("WRITE"))
+  const newMember = otheOwnerShop?.filter(data => data["perms"].includes("WRITE"))
   console.log(dukaanlist);
 
   for (let x of dukanSales) {
@@ -174,10 +177,35 @@ export default function Home() {
         
       
     }
-  
+const handlelogout = ()=>{
+  fetch('http://127.0.0.1:8000/logout', {
+
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        'X-CSRFToken': csrftoken,
+      },
+      withCredentials: true,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+        navigate("/")
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+}
   return (
     <>
+      <div className='home_hdr'>
       <h1 className='welcome_back'>Welcome Back {userData?.basic_info?.first_name}</h1>
+      <Button variant="contained" size="large" onClick = {handlelogout}
+      color="secondary"
+      >
+          Log Out
+        </Button>
+      </div>
       <p className='Overview'>Overview</p>
       <div>
         <p>Two Factor Authentication</p>

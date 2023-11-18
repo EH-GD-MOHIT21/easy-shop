@@ -17,10 +17,13 @@
 
 .Existing_Dukaan {
     width: 100%;
+    background-color: #494949;
 }
 
 .Existing_Dukaan_logo {
-    width: 100%;
+    width:100%;
+    object-fit: contain;
+    height: 400px;
 }
 
 .Add_product_sextion {

@@ -114,3 +114,9 @@ span.dukaan_name-value {
     padding: 32px;
     border-radius: 8px;
 }
+
+.home_hdr{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

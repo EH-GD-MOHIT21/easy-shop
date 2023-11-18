@@ -18,132 +18,76 @@ export default function Customers() {
             </tr>
           </thead>
           <tbody>
-            <tr>
+          <tr>
               <td>#1234567</td>
-              <td>Domenic</td>
-              <td>Deepanshu Sarswat</td>
-              <td>1</td>
-              <td>COD</td>
-              <td>Pending</td>
-
-
-            </tr>
-            <tr>
-              <td>#1234567</td>
-              <td>Domenic</td>
-              <td>Deepanshu Sarswat</td>
-              <td>1</td>
-              <td>COD</td>
+              <td>8899638900</td>
+              <td>sarswatdeepanshu@gmail.com</td>
+              <td>Bikaner</td>
+              <td>2</td>
               <td>Pending</td>
 
 
             </tr>  <tr>
               <td>#1234567</td>
-              <td>Domenic</td>
-              <td>Deepanshu Sarswat</td>
-              <td>1</td>
-              <td>COD</td>
+              <td>8899638900</td>
+              <td>sarswatdeepanshu@gmail.com</td>
+              <td>Bikaner</td>
+              <td>2</td>
               <td>Pending</td>
 
 
             </tr>  <tr>
               <td>#1234567</td>
-              <td>Domenic</td>
-              <td>Deepanshu Sarswat</td>
-              <td>1</td>
-              <td>COD</td>
+              <td>8899638900</td>
+              <td>sarswatdeepanshu@gmail.com</td>
+              <td>Bikaner</td>
+              <td>2</td>
               <td>Pending</td>
 
 
             </tr>  <tr>
               <td>#1234567</td>
-              <td>Domenic</td>
-              <td>Deepanshu Sarswat</td>
-              <td>1</td>
-              <td>COD</td>
+              <td>8899638900</td>
+              <td>sarswatdeepanshu@gmail.com</td>
+              <td>Bikaner</td>
+              <td>2</td>
               <td>Pending</td>
 
 
             </tr>  <tr>
               <td>#1234567</td>
-              <td>Domenic</td>
-              <td>Deepanshu Sarswat</td>
-              <td>1</td>
-              <td>COD</td>
+              <td>8899638900</td>
+              <td>sarswatdeepanshu@gmail.com</td>
+              <td>Bikaner</td>
+              <td>2</td>
               <td>Pending</td>
 
 
             </tr>  <tr>
               <td>#1234567</td>
-              <td>Domenic</td>
-              <td>Deepanshu Sarswat</td>
-              <td>1</td>
-              <td>COD</td>
+              <td>8899638900</td>
+              <td>sarswatdeepanshu@gmail.com</td>
+              <td>Bikaner</td>
+              <td>2</td>
               <td>Pending</td>
 
 
             </tr>  <tr>
               <td>#1234567</td>
-              <td>Domenic</td>
-              <td>Deepanshu Sarswat</td>
-              <td>1</td>
-              <td>COD</td>
+              <td>8899638900</td>
+              <td>sarswatdeepanshu@gmail.com</td>
+              <td>Bikaner</td>
+              <td>2</td>
               <td>Pending</td>
 
 
             </tr>  <tr>
               <td>#1234567</td>
-              <td>Domenic</td>
-              <td>Deepanshu Sarswat</td>
-              <td>1</td>
-              <td>COD</td>
+              <td>8899638900</td>
+              <td>sarswatdeepanshu@gmail.com</td>
+              <td>Bikaner</td>
+              <td>2</td>
               <td>Pending</td>
-
-
-            </tr>  <tr>
-              <td>#1234567</td>
-              <td>Domenic</td>
-              <td>Deepanshu Sarswat</td>
-              <td>1</td>
-              <td>COD</td>
-              <td>Pending</td>
-
-
-            </tr>  <tr>
-              <td>#1234567</td>
-              <td>Domenic</td>
-              <td>Deepanshu Sarswat</td>
-              <td>1</td>
-              <td>COD</td>
-              <td>Pending</td>
-
-
-            </tr>  <tr>
-              <td>#1234567</td>
-              <td>Domenic</td>
-              <td>Deepanshu Sarswat</td>
-              <td>1</td>
-              <td>COD</td>
-              <td>Pending</td>
-
-
-            </tr>
-            <tr class="active-row">
-              <td>1</td>
-              <td>Domenic</td>
-              <td>88,110</td>
-              <td>dcode</td>
-              <td>dcode</td>
-              <td>dcode</td>
-
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>Domenic</td>
-              <td>88,110</td>
-              <td>dcode</td>
-              <td>dcode</td>
-              <td>dcode</td>
 
 
             </tr>

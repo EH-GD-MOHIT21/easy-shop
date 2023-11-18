@@ -167,10 +167,12 @@ export default function AddDukaan() {
                 <div className='Existing_Dukaans'>
                     {
                         ExistingDukaan.map((data) => {
+                            const a = data.name.split(" ").slice(0,3);
+                            console.log(a)
                             return (
                                 <div className='Existing_Dukaan'>
                                     <img className="Existing_Dukaan_logo" src={data?.logo} />
-                                    <div className='Exiting_dukan_name'>{data.name}
+                                    <div className='Exiting_dukan_name'>{a.join(" ")}
                                         <Fab size="small" color="secondary" aria-label="add"
                                             onClick={() => DeleteVarient(data.slug)}
                                         >

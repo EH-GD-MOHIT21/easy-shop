@@ -131,7 +131,7 @@ export default function AddCart() {
                                     <div className='Cart_itm_right'>
                                         <div className='product_title'>
                                             <p className='title-product'>{data?.product?.name}</p>
-                                            <p className='remove_product'>Remove</p>
+                                            {/* <p className='remove_product'>Remove</p> */}
                                         </div>
                                         <div className='cart-itm-price'>
                                             <span className='discount_price'>₹ {data?.product?.discounted_price}</span> <span className='real_price'>₹ {data?.product?.price}</span> <span>(65% off)</span>

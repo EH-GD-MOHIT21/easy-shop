@@ -9,12 +9,13 @@ export default function MyOrders() {
         console.log(datas.data);
         setorderList(datas.data)})
   }, [])
+  console.log(orderList);
   return (
     <div className='myOrders_main'>
      {
-      orderList.map((data)=>{
-        const newData_img = data?.order_items[0].product.images[0].url;
-        const newData_title = data?.order_items[0].product.name
+      orderList?.map((data)=>{
+        const newData_img = data?.order_items[0]?.product?.images[0].url;
+        const newData_title = data?.order_items[0]?.product?.name
         return (
           <div className='shopping-left-body'>
         <div className='Cart_itm-lefts'>
@@ -26,7 +27,7 @@ export default function MyOrders() {
             <p className='remove_product'>{data.order_status}</p>
           </div>
           <div className='cart-itm-price'>
-            <span className='discount_price'>₹ {data?.order_items[0].product.discounted_price}</span> <span className='real_price'>₹ {data?.order_items[0].product.price}</span> <span>
+            <span className='discount_price'>₹ {data?.order_items[0]?.product?.discounted_price}</span> <span className='real_price'>₹ {data?.order_items[0]?.product?.price}</span> <span>
             ({(((data?.price - data?.discounted_price) / data?.price) * 100).toFixed(2)}% OFF)
             </span>
           </div>
